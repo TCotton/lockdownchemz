@@ -1,0 +1,30 @@
+{
+  "name": "lockdownchemz",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "burial",
+    "chemz"
+  ],
+  "license": "",
+  "author": "",
+  "scripts": {
+    "build": "parcel build index.html",
+    "dev": "parcel --https index.html --open",
+    "start": "yarn run build && yarn run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/d3": "^6.2.0",
+    "@types/howler": "^2.2.1",
+    "@types/node": "^14.14.21",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "2.5.0",
+    "sass": "^1.32.4",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "d3": "6.3.1",
+    "howler": "^2.2.1"
+  }
+}
