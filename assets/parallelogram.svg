@@ -3,7 +3,6 @@
   <style>
     rect {
       fill:black;
-      max-width:100%;
     }
   </style>
   <rect x="190" y="0" width="90%" height="100%"  transform="skewX(-20)" />

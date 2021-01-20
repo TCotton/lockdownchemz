@@ -1,8 +1,8 @@
 import "./plugins";
-import * as d3 from 'd3';
+import * as d3 from '@types/d3';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
-import { createD3 } from './d3script';
+import {createD3} from './d3script';
 
 const Chemz = (function () {
   const _private: {
@@ -13,6 +13,7 @@ const Chemz = (function () {
     towerBlockElement: HTMLElement | null;
     url: String | null;
     waveformArray: Array<Float32Array> | null;
+    frequencyArray: Array<Float32Array> | null;
     analyser: AudioContext | null;
     createAudioContext: (url: String) => void;
     audioElement: HTMLAudioElement | null;
@@ -38,6 +39,7 @@ const Chemz = (function () {
     svg: null,
     d3Line: null,
     towerBlockElement: null,
+    frequencyArray: null,
 
     init: function (element: HTMLElement, elementTwo: HTMLElement) {
       this.playIconClassElement = element;
@@ -45,20 +47,28 @@ const Chemz = (function () {
     },
 
     createAudioContext: function (url: String) {
-      this.sound = new Howl({
-        src: [url],
-        autoplay: true,
-        preload: true,
-        onloaderror: function() {
-          console.log('onloaderror ERROR');
-        },
-        onplayerror: function() {
-          console.log( 'onplayerror ERROR');
-        },
-        onfade: function() {
-          console.log( 'FADE');
-        },
-      });
+      try {
+        this.sound = new Howl({
+          src: [url],
+          autoplay: true,
+          preload: true,
+          onloaderror: function (id, err) {
+            console.log('onloaderror ERROR', [id, err]);
+          },
+          onplayerror: (id, err) => {
+            console.log('onplayerror ERROR', [id, err]);
+            this.sound.once('unlock', () => {
+              this.sound.play();
+            });
+          },
+          onfade: function (id) {
+            console.log('FADE', [id]);
+          },
+        });
+      } catch (e: unknown) {
+        this.playIconClassElement.classList.remove('hidden');
+        this.towerBlockElement.classList.add('blur');
+      }
     },
 
     createNodes: function () {
@@ -66,6 +76,8 @@ const Chemz = (function () {
       this.analyser = this.ctx.createAnalyser();
       this.waveformArray = new Float32Array(this.analyser.fftSize);
       this.analyser.getFloatTimeDomainData(this.waveformArray);
+      this.frequencyArray = new Float32Array(this.analyser.frequencyBinCount);
+      this.analyser.getFloatFrequencyData(this.frequencyArray);
     },
 
     createDestination: function () {
@@ -73,7 +85,7 @@ const Chemz = (function () {
       this.analyser.connect(this.ctx.destination);
     },
 
-    buildD3: function() {
+    buildD3: function () {
       this.svg.d3Build();
     },
 
@@ -109,6 +121,8 @@ const Chemz = (function () {
     play: function () {
       this.playIconClassElement.addEventListener('click', () => {
         this.sound.play();
+        if (!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
+        if (this.towerBlockElement.classList.contains('blur')) this.playIconClassElement.classList.remove('blur');
       });
     },
 
