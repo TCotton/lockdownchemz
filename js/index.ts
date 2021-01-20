@@ -45,7 +45,7 @@ const Chemz = (function () {
     createAudioContext: function (url: String) {
       this.sound = new Howl({
         src: [url],
-        autoplay: true,
+        autoplay: false,
         preload: true,
         onloaderror: function() {
           console.log('onloaderror ERROR');
@@ -100,8 +100,7 @@ const Chemz = (function () {
       const height = Math.max(doc.documentElement.clientHeight || 0, win.innerHeight || 0);
 
       this.svg = d3.select('#svg');
-      this.svg.attr('width', width);
-      this.svg.attr('height', height);
+      this.svg.attr("viewBox", `0 0 ${width} ${height}`);
 
       const xScale = d3.scaleLinear()
         .range([0, width])
@@ -151,7 +150,7 @@ const Chemz = (function () {
 const init = {...Chemz};
 win.onload = () => {
   init.facade({
-    url: require('../static/chemz.flac'),
+    url: require('../static/chemz.mp3'),
     playIconClassElement: <HTMLElement>doc.querySelector('.play_icon'),
     towerBlockElement: <HTMLElement>doc.querySelector('.towerblock')
   });

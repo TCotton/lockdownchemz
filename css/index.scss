@@ -8,7 +8,7 @@ body {
   font-weight: 400;
   line-height: #{$baseLineHeight};
   color: white;
-  overflow-x: hidden;
+  //overflow: hidden;
 }
 
 img.bg {
@@ -151,10 +151,15 @@ img.bg {
 }
 
 .waveform {
-  position: absolute;
+ /* position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1000;*/
+}
+
+#svg {
+  position: absolute;
+  top: 0;
 }
 
 .towerblock {
