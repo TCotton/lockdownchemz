@@ -1,5 +1,5 @@
 import "./plugins";
-import * as d3 from '@types/d3';
+import * as d3 from 'd3';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';

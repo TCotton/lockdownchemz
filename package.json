@@ -8,15 +8,17 @@
   ],
   "license": "",
   "author": "",
+  "type": "module",
   "scripts": {
     "build": "parcel build index.html",
     "dev": "parcel --https index.html --open",
     "start": "yarn run build && yarn run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "devDependencies": {
     "@types/d3": "^6.2.0",
     "@types/howler": "^2.2.1",
+    "@types/jasmine": "^3.6.3",
     "@types/node": "^14.14.21",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "2.5.0",
