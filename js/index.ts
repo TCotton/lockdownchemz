@@ -2,6 +2,7 @@ import "./plugins";
 import * as d3 from 'd3';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
+import { createD3 } from './d3script';
 
 const Chemz = (function () {
   const _private: {
@@ -24,6 +25,7 @@ const Chemz = (function () {
     svg: d3 | null;
     d3Line: d3.Line<any>;
     isPlaying: () => void;
+    buildD3: () => void;
   } = {
     url: null,
     audioElement: null,
@@ -45,7 +47,7 @@ const Chemz = (function () {
     createAudioContext: function (url: String) {
       this.sound = new Howl({
         src: [url],
-        autoplay: false,
+        autoplay: true,
         preload: true,
         onloaderror: function() {
           console.log('onloaderror ERROR');
@@ -71,6 +73,10 @@ const Chemz = (function () {
       this.analyser.connect(this.ctx.destination);
     },
 
+    buildD3: function() {
+      this.svg.d3Build();
+    },
+
     requestAnimationFrameFnc: function () {
       const fps = 60;
       /*  setTimeout(() => {
@@ -82,10 +88,7 @@ const Chemz = (function () {
         if (!this.towerBlockElement.classList.contains('animation')) {
           this.towerBlockElement.classList.add('animation');
         }
-        this.svg.select(".waveform")
-          .select("path")
-          .datum(this.waveformArray)
-          .attr("d", this.d3Line);
+        this.svg.d3Path(this.waveformArray);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -98,25 +101,9 @@ const Chemz = (function () {
 
       const width = Math.max(doc.documentElement.clientWidth || 0, win.innerWidth || 0);
       const height = Math.max(doc.documentElement.clientHeight || 0, win.innerHeight || 0);
+      const fftSize = this.analyser.fftSize;
 
-      this.svg = d3.select('#svg');
-      this.svg.attr("viewBox", `0 0 ${width} ${height}`);
-
-      const xScale = d3.scaleLinear()
-        .range([0, width])
-        .domain([0, this.analyser.fftSize]);
-
-      const yScale = d3.scaleLinear()
-        .range([height, 0])
-        .domain([-1, 1]);
-
-      this.d3Line = d3.line()
-        .x(function (d, i) {
-          return xScale(i);
-        })
-        .y(function (d, i) {
-          return yScale(d);
-        });
+      this.svg = createD3({height, width, fftSize});
     },
 
     play: function () {
@@ -140,9 +127,10 @@ const Chemz = (function () {
       _private.createAudioContext(url);
       _private.createNodes();
       _private.createDestination();
+      _private.useD3();
+      _private.buildD3();
       _private.requestAnimationFrameFnc();
       _private.play();
-      _private.useD3();
       _private.isPlaying();
     }
   }
