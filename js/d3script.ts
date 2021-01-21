@@ -1,10 +1,11 @@
+// @ts-ignore
 import * as d3 from 'd3';
 
 export const createD3 = ({
                            height,
                            width,
                            fftSize
-                         }): { d3Build(): d3; setFftSize(fftSize): AnalyserNode; fftSize: number; width: number; setHeight(height): number; setWidth(width): number; d3Path(waveformArray: Array<Float32Array>): void; height: number; aggregate: (frequencyArray: Array<Float32Array>) => Float32Array } => ({
+                         }): { d3Build(): d3; setFftSize(fftSize): AnalyserNode; fftSize: number; width: number; setHeight(height): number; setWidth(width): number; d3Path(waveformArray: Array<Float32Array>): void; normalizeData: (frequencyArray: number[]) => number[]; height: number; aggregate: (frequencyArray: Float32Array[]) => Float32Array } => ({
   height,
   width,
   fftSize,
@@ -46,20 +47,28 @@ export const createD3 = ({
       .datum(waveformArray)
       .attr("d", this.d3Line);
   },
-  aggregate: function(frequencyArray: Array<Float32Array>): Float32Array {
-    const numberOfBars = 12;
+  aggregate: function(frequencyArray: Float32Array[]): Float32Array {
+    const numberOfBars = Array.from(Array(12).keys());
     const aggregated = new Float32Array(numberOfBars);
 
-    for(let i = 0; i < numberOfBars; i++) {
-      let lowerBound = Math.floor(i / numberOfBars * frequencyArray.length);
-      let upperBound = Math.floor((i + 1) / numberOfBars * frequencyArray.length);
+    numberOfBars.forEach((x, ) => {
+      let lowerBound = Math.floor(x / numberOfBars.length * frequencyArray.length);
+      let upperBound = Math.floor((x + 1) / numberOfBars.length * frequencyArray.length);
       let bucket = frequencyArray.slice(lowerBound, upperBound);
 
-      aggregated[i] = bucket.reduce(function(acc, d) {
+      aggregated[x] = bucket.reduce(function(acc, d) {
         return acc + d;
       }, 0) / bucket.length;
-    }
+    });
 
     return aggregated;
+  },
+
+  /*
+  TODO: this DOES NOT normalise data between 0 and 1
+   */
+  normalizeData: function(frequencyArray: number[]): number[] {
+    const multiplier = Math.pow(Math.max(...frequencyArray), -1);
+    return frequencyArray.map(n => n * multiplier);
   }
 });

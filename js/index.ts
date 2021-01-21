@@ -1,8 +1,8 @@
 import "./plugins";
-import * as d3 from 'd3';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
+import compose from 'lodash/fp/compose';
 
 const Chemz = (function () {
   const _private: {
@@ -11,20 +11,19 @@ const Chemz = (function () {
     ctx: AudioContext | null;
     playIconClassElement: HTMLElement | null;
     towerBlockElement: HTMLElement | null;
-    url: String | null;
-    waveformArray: Array<Float32Array> | null;
-    frequencyArray: Array<Float32Array> | null;
+    url: string | null;
+    waveformArray: Float32Array[] | null;
+    frequencyArray: Float32Array[] | null;
     analyser: AudioContext | null;
     createAudioContext: (url: String) => void;
     audioElement: HTMLAudioElement | null;
     createNodes: () => void;
     createDestination: () => void;
     requestAnimationFrameFnc: () => void;
-    globalAnimationID: Number | null;
+    globalAnimationID: number | null;
     sound: Howl | null;
     useD3: () => void;
-    svg: d3 | null;
-    d3Line: d3.Line<any>;
+    svg: object | null;
     isPlaying: () => void;
     buildD3: () => void;
   } = {
@@ -37,7 +36,6 @@ const Chemz = (function () {
     globalAnimationID: null,
     sound: null,
     svg: null,
-    d3Line: null,
     towerBlockElement: null,
     frequencyArray: null,
 
@@ -46,29 +44,35 @@ const Chemz = (function () {
       this.towerBlockElement = elementTwo;
     },
 
-    createAudioContext: function (url: String) {
+    createAudioContext: function (url: string) {
+
       try {
-        this.sound = new Howl({
-          src: [url],
-          autoplay: true,
-          preload: true,
-          onloaderror: function (id, err) {
-            console.log('onloaderror ERROR', [id, err]);
-          },
-          onplayerror: (id, err) => {
-            console.log('onplayerror ERROR', [id, err]);
-            this.sound.once('unlock', () => {
-              this.sound.play();
-            });
-          },
-          onfade: function (id) {
-            console.log('FADE', [id]);
-          },
-        });
+        const audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') {
+          new Error();
+        }
       } catch (e: unknown) {
         this.playIconClassElement.classList.remove('hidden');
         this.towerBlockElement.classList.add('blur');
       }
+
+      this.sound = new Howl({
+        src: [url],
+        autoplay: true,
+        preload: true,
+        onloaderror: function (id, err) {
+          console.log('onloaderror ERROR', [id, err]);
+        },
+        onplayerror: (id, err) => {
+          console.log('onplayerror ERROR', [id, err]);
+          this.sound.once('unlock', () => {
+            this.sound.play();
+          });
+        },
+        onfade: function (id) {
+          console.log('FADE', [id]);
+        },
+      });
     },
 
     createNodes: function () {
@@ -101,6 +105,14 @@ const Chemz = (function () {
           this.towerBlockElement.classList.add('animation');
         }
         this.svg.d3Path(this.waveformArray);
+        this.analyser.getFloatFrequencyData(this.frequencyArray);
+
+        const getMyResult = compose(
+          this.svg.aggregate,
+          this.svg.normalizeData,
+        );
+        const myResult = getMyResult(this.frequencyArray);
+        console.dir(myResult);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
