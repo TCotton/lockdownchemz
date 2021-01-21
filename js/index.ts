@@ -136,13 +136,12 @@ const Chemz = (function () {
         this.sound.play();
         !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
         if (this.towerBlockElement.classList.contains('blur')) this.playIconClassElement.classList.remove('blur');
-      }, true);
+      });
     },
 
     isPlaying: function (): void {
-      this.sound.once('play', function () {
-        console.log('PLAYING');
-        !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+      this.sound.once('play', () => {
+        if(!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
       });
     },
 
