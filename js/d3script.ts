@@ -49,7 +49,7 @@ export const createD3 = ({
   },
   aggregate: function(frequencyArray: Float32Array[]): Float32Array {
     const numberOfBars = Array.from(Array(12).keys());
-    const aggregated = new Float32Array(numberOfBars);
+    const aggregated = new Float32Array(numberOfBars); // does this need to be Float32Array?
 
     numberOfBars.forEach((x, ) => {
       let lowerBound = Math.floor(x / numberOfBars.length * frequencyArray.length);

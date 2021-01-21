@@ -3,6 +3,7 @@ import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
 import compose from 'lodash/fp/compose';
+import canAutoplay from 'can-autoplay';
 
 const Chemz = (function () {
   const _private: {
@@ -26,6 +27,7 @@ const Chemz = (function () {
     svg: object | null;
     isPlaying: () => void;
     buildD3: () => void;
+    detectAutoplay: () => void;
   } = {
     url: null,
     audioElement: null,
@@ -46,16 +48,6 @@ const Chemz = (function () {
 
     createAudioContext: function (url: string) {
 
-      try {
-        const audioCtx = new AudioContext();
-        if (audioCtx.state === 'suspended') {
-          new Error();
-        }
-      } catch (e: unknown) {
-        this.playIconClassElement.classList.remove('hidden');
-        this.towerBlockElement.classList.add('blur');
-      }
-
       this.sound = new Howl({
         src: [url],
         autoplay: true,
@@ -73,6 +65,15 @@ const Chemz = (function () {
           console.log('FADE', [id]);
         },
       });
+    },
+
+    detectAutoplay: function():void {
+      canAutoplay.audio().then(({result}) => {
+        if (!result) {
+          this.playIconClassElement.classList.remove('hidden');
+          this.towerBlockElement.classList.add('blur');
+        }
+      })
     },
 
     createNodes: function () {
@@ -151,6 +152,7 @@ const Chemz = (function () {
 
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);
+      _private.detectAutoplay();
       _private.createNodes();
       _private.createDestination();
       _private.useD3();
