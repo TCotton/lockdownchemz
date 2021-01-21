@@ -292,8 +292,8 @@ img.bg {
 }
 
 @keyframes glitch-anim-flash {
-  0% { opacity: 0.6; transform: translate3d(var(--gap), var(--gap-vertical), 0); }
-  33%, 100% { opacity: 0.3; transform: translate3d(0, 0, 0); }
+  0% { opacity: 0; transform: translate3d(var(--gap), var(--gap-vertical), 0); }
+  33%, 100% { opacity: 0.4; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes glitch-anim-text {

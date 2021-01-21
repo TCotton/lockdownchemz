@@ -50,7 +50,7 @@ const Chemz = (function () {
 
       this.sound = new Howl({
         src: [url],
-        autoplay: false,
+        autoplay: true,
         preload: true,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
@@ -67,7 +67,7 @@ const Chemz = (function () {
       });
     },
 
-    detectAutoplay: function():void {
+    detectAutoplay: function (): void {
       canAutoplay.audio().then(({result}) => {
         if (!result) {
           this.playIconClassElement.classList.remove('hidden');
@@ -134,14 +134,15 @@ const Chemz = (function () {
     play: function () {
       this.playIconClassElement.addEventListener('click', () => {
         this.sound.play();
-        if (!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
+        !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
         if (this.towerBlockElement.classList.contains('blur')) this.playIconClassElement.classList.remove('blur');
-      });
+      }, true);
     },
 
     isPlaying: function () {
       this.sound.once('play', function () {
         console.log('PLAYING');
+        !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
       });
     },
 
@@ -149,7 +150,6 @@ const Chemz = (function () {
   return {
     facade: function (args) {
       const {url, playIconClassElement, towerBlockElement} = args;
-
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);
       _private.detectAutoplay();
