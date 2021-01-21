@@ -13,7 +13,8 @@
     "build": "parcel build index.html",
     "dev": "parcel --https index.html --open",
     "start": "yarn run build && yarn run dev",
-    "test": ""
+    "test": "",
+    "deploy-demo": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "@types/d3": "^6.2.0",
