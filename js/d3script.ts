@@ -5,7 +5,7 @@ export const createD3 = ({
                            height,
                            width,
                            fftSize
-                         }): { d3Build(): d3; setFftSize(fftSize): AnalyserNode; fftSize: number; width: number; setHeight(height): number; setWidth(width): number; d3Path(waveformArray: Array<Float32Array>): void; normalizeData: (frequencyArray: number[]) => number[]; height: number; aggregate: (frequencyArray: Float32Array[]) => Float32Array } => ({
+                         }): { d3Build(): d3; setFftSize(fftSize: number): AnalyserNode; fftSize: number; width: number; setHeight(height:number): number; setWidth(width:number): number; d3Path(waveformArray: Array<Float32Array>): void; normalizeData: (frequencyArray: number[]) => number[]; height: number; aggregate: (frequencyArray: Float32Array[]) => Float32Array } => ({
   height,
   width,
   fftSize,

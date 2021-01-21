@@ -16,7 +16,7 @@ const Chemz = (function () {
     waveformArray: Float32Array[] | null;
     frequencyArray: Float32Array[] | null;
     analyser: AudioContext | null;
-    createAudioContext: (url: String) => void;
+    createAudioContext: (url: string) => void;
     audioElement: HTMLAudioElement | null;
     createNodes: () => void;
     createDestination: () => void;
@@ -76,7 +76,7 @@ const Chemz = (function () {
       })
     },
 
-    createNodes: function () {
+    createNodes: function (): void {
       this.ctx = Howler.ctx;
       this.analyser = this.ctx.createAnalyser();
       this.waveformArray = new Float32Array(this.analyser.fftSize);
@@ -85,16 +85,16 @@ const Chemz = (function () {
       this.analyser.getFloatFrequencyData(this.frequencyArray);
     },
 
-    createDestination: function () {
+    createDestination: function (): void {
       Howler.masterGain.connect(this.analyser);
       this.analyser.connect(this.ctx.destination);
     },
 
-    buildD3: function () {
+    buildD3: function (): void {
       this.svg.d3Build();
     },
 
-    requestAnimationFrameFnc: function () {
+    requestAnimationFrameFnc: function (): void {
       const fps = 60;
       /*  setTimeout(() => {
           this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
@@ -108,12 +108,12 @@ const Chemz = (function () {
         this.svg.d3Path(this.waveformArray);
         this.analyser.getFloatFrequencyData(this.frequencyArray);
 
-        const getMyResult = compose(
+        /*const getMyResult = compose(
           this.svg.aggregate,
           this.svg.normalizeData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        console.dir(myResult);
+        console.dir(myResult);*/
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -122,7 +122,7 @@ const Chemz = (function () {
       }
     },
 
-    useD3: function () {
+    useD3: function (): void {
 
       const width = Math.max(doc.documentElement.clientWidth || 0, win.innerWidth || 0);
       const height = Math.max(doc.documentElement.clientHeight || 0, win.innerHeight || 0);
@@ -131,7 +131,7 @@ const Chemz = (function () {
       this.svg = createD3({height, width, fftSize});
     },
 
-    play: function () {
+    play: function (): void {
       this.playIconClassElement.addEventListener('click', () => {
         this.sound.play();
         !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
@@ -139,7 +139,7 @@ const Chemz = (function () {
       }, true);
     },
 
-    isPlaying: function () {
+    isPlaying: function (): void {
       this.sound.once('play', function () {
         console.log('PLAYING');
         !this.playIconClassElement.classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
@@ -148,7 +148,7 @@ const Chemz = (function () {
 
   };
   return {
-    facade: function (args) {
+    facade: function (args:any): void {
       const {url, playIconClassElement, towerBlockElement} = args;
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);
