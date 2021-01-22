@@ -42,12 +42,12 @@ const Chemz = (function () {
     towerBlockElement: null,
     frequencyArray: null,
 
-    init: function (element: HTMLElement, elementTwo: HTMLElement) {
+    init: function (element: HTMLElement, elementTwo: HTMLElement): void {
       this.playIconClassElement = element;
       this.towerBlockElement = elementTwo;
     },
 
-    createAudioContext: function (url: string) {
+    createAudioContext: function (url: string): void {
 
       this.sound = new Howl({
         src: [url],
