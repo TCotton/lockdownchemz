@@ -1,9 +1,10 @@
 import "./plugins";
+import compose from 'lodash/fp/compose';
+import canAutoplay from 'can-autoplay';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
-import compose from 'lodash/fp/compose';
-import canAutoplay from 'can-autoplay';
+import {normaliseData,aggregate} from './helperFunctions';
 
 const Chemz = (function () {
   const _private: {
@@ -50,7 +51,7 @@ const Chemz = (function () {
 
       this.sound = new Howl({
         src: [url],
-        autoplay: true,
+        autoplay: false,
         preload: true,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
@@ -108,12 +109,12 @@ const Chemz = (function () {
         this.svg.d3Path(this.waveformArray);
         this.analyser.getFloatFrequencyData(this.frequencyArray);
 
-        /*const getMyResult = compose(
-          this.svg.aggregate,
-          this.svg.normalizeData,
+        const getMyResult = compose(
+          aggregate,
+          normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        console.dir(myResult);*/
+        console.dir(myResult);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -151,7 +152,7 @@ const Chemz = (function () {
       const {url, playIconClassElement, towerBlockElement} = args;
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);
-      _private.detectAutoplay();
+      //_private.detectAutoplay();
       _private.createNodes();
       _private.createDestination();
       _private.useD3();

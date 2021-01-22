@@ -1256,10 +1256,22 @@ arr-union@^3.1.0:
   resolved "https://registry.yarnpkg.com/arr-union/-/arr-union-3.1.0.tgz#e39b09aea9def866a8f206e288af63919bae39c4"
   integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
 
+array-bounds@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/array-bounds/-/array-bounds-1.0.1.tgz#da11356b4e18e075a4f0c86e1f179a67b7d7ea31"
+  integrity sha512-8wdW3ZGk6UjMPJx/glyEt0sLzzwAE1bhToPsO1W2pbpR2gULyxe3BjSiuJFheP50T/GgODVPz2fuMUmIywt8cQ==
+
 array-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/array-equal/-/array-equal-1.0.0.tgz#8c2a5ef2472fd9ea742b04c77a75093ba2757c93"
   integrity sha1-jCpe8kcv2ep0KwTHenUJO6J1fJM=
+
+array-normalize@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/array-normalize/-/array-normalize-2.0.0.tgz#332f7b235fa78b95d219b138649f904d9adaf443"
+  integrity sha512-WofPolGg9OqpmfYh2qqOJ0yeJ9Idjn+EcQ+Nyy3eQbqtuz0MRyqTEHB0PH/Ypp2PpsOAfjsqTMzu1fHOaPzO1Q==
+  dependencies:
+    array-bounds "^1.0.0"
 
 array-unique@^0.3.2:
   version "0.3.2"

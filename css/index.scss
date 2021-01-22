@@ -58,15 +58,16 @@ img.bg {
   top: 0;
   left: 0;
   z-index: -1;
-  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><filter id="blurMe"><feGaussianBlur in="SourceGraphic" stdDeviation="1" /></filter><polygon points="20,20 20,180 180,100""/></svg>') 0/100% 80%,
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><polygon points="20,20 20,180 180,100""/></svg>') 0/100% 80%,
   linear-gradient(#fff, transparent);
+  //-webkit-mask: url('../assets/arrow.svg') 0/100% 80%,linear-gradient(#fff, transparent);
   -webkit-mask-composite: destination-out;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
   filter: blur(5px);
-  animation: animateparallelogram 5s ease-in;
-  animation-iteration-count: infinite;
+  //animation: animateparallelogram 5s ease-in;
+  //animation-iteration-count: infinite;
 }
 
 @keyframes animateparallelogram {
@@ -151,24 +152,12 @@ img.bg {
   }
 }
 
-.waveform {
- /* position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;*/
-}
-
-#svg {
-  position: absolute;
-  top: 0;
-}
-
 .towerblock {
   position: fixed;
   bottom: 0;
   left: auto;
   right: auto;
-  z-index: 0;
+  z-index: 1;
   object-fit: scale-down;
   // height: 100vh; - put media query here
   @media screen and (max-height: 1000px) {
@@ -182,7 +171,7 @@ img.bg {
   }
 }
 .blur {
-  filter: blur(10px);
+  //filter: blur(10px);
 }
 .hidden {
   display: none!important;
@@ -301,7 +290,6 @@ img.bg {
   30% { opacity: 1; transform: translate3d(-25px, -10px, 0); }
   37%, 100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
-
 
 .animation {
   animation: shake 0.5s cubic-bezier(.36, .07, .19, .97), blur 40s ease-in;

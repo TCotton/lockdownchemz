@@ -14,9 +14,11 @@
 
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
 
+
+  <!-- Place favicon.ico in the root directory -->
   <link rel="stylesheet" href="css/index.scss">
+  <link rel="preload" href="static/chemz.mp3" type="audio/mp3">
 
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -25,11 +27,7 @@
 <img src="assets/background-small.jpg" width="5760" height="3840" alt="" class="bg"/>
 
 <!-- Add your site or application content here -->
-<svg id="svg">
-  <g class="waveform">
-    <path></path>
-  </g>
-</svg>
+<div id="svg"></div>
 
 <svg id="svg2">
   <g class="frequency"></g>
@@ -45,8 +43,6 @@
 
 <script src="js/index.ts"></script>
 <div class="towerblock">
-  <?xml version="1.0" standalone="no"?>
-  <!DOCTYPE PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
   <svg xmlns="http://www.w3.org/2000/svg" id="body_1" width="1590"
        height="1071">
 
