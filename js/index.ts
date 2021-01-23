@@ -56,7 +56,7 @@ const Chemz = (function () {
 
       this.sound = new Howl({
         src: [url],
-        autoplay: false,
+        autoplay: true,
         preload: true,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
@@ -145,8 +145,7 @@ const Chemz = (function () {
       this.sound.once('play', () => {
         if(!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
       });
-    },
-
+    }
   };
   return {
     facade: function (args:any): void {
