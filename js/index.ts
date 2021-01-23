@@ -126,7 +126,6 @@ const Chemz = (function () {
     },
 
     useD3: function (): void {
-
       const width = Math.max(doc.documentElement.clientWidth || 0, win.innerWidth || 0);
       const height = Math.max(doc.documentElement.clientHeight || 0, win.innerHeight || 0);
       const fftSize = this.analyser.fftSize;

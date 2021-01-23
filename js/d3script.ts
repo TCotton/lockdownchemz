@@ -29,8 +29,7 @@ export const createD3 = ({
 
     .append('rect')
     .attr('height', '100%')
-    .attr('width', '100%')
-
+    .attr('width', '100%');
   },
   d3BuildSpiral(): void {
     const height = 300;
