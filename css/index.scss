@@ -58,16 +58,16 @@ img.bg {
   top: 0;
   left: 0;
   z-index: -1;
-  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><polygon points="20,20 20,180 180,100""/></svg>') 0/100% 80%,
-  linear-gradient(#fff, transparent);
+  -webkit-mask: url('../assets/arrow.svg') 0/100% 100%,
+  linear-gradient(#fff,transparent);
   //-webkit-mask: url('../assets/arrow.svg') 0/100% 80%,linear-gradient(#fff, transparent);
   -webkit-mask-composite: destination-out;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
   filter: blur(5px);
-  //animation: animateparallelogram 5s ease-in;
-  //animation-iteration-count: infinite;
+  animation: animateparallelogram 5s ease-in;
+  animation-iteration-count: infinite;
 }
 
 @keyframes animateparallelogram {

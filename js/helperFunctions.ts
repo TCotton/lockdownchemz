@@ -4,9 +4,9 @@ const normaliseData = (frequencyArray: number[]): number[] => {
   return normalize(frequencyArray);
 }
 
-const aggregate = (frequencyArray: Float32Array[]): Float32Array => {
+const aggregate = (frequencyArray: number[]): Float32Array => {
   const numberOfBars = Array.from(Array(12).keys());
-  const aggregated = new Float32Array(numberOfBars); // does this need to be Float32Array?
+  const aggregated = new Float32Array(numberOfBars);
 
   numberOfBars.forEach((x) => {
     let lowerBound = Math.floor(x / numberOfBars.length * frequencyArray.length);

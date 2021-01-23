@@ -6,6 +6,11 @@ import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
 import {normaliseData,aggregate} from './helperFunctions';
 
+ /*   const fps = 60;
+     setTimeout(() => {
+          this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
+        }, 1000 / fps);*/
+
 const Chemz = (function () {
   const _private: {
     play: () => void;
@@ -96,10 +101,7 @@ const Chemz = (function () {
     },
 
     requestAnimationFrameFnc: function (): void {
-      const fps = 60;
-      /*  setTimeout(() => {
-          this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
-        }, 1000 / fps);*/
+
       this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
       this.analyser.getFloatTimeDomainData(this.waveformArray)
       if (this.waveformArray.some(Boolean)) {
@@ -152,7 +154,7 @@ const Chemz = (function () {
       const {url, playIconClassElement, towerBlockElement} = args;
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);
-      //_private.detectAutoplay();
+      _private.detectAutoplay();
       _private.createNodes();
       _private.createDestination();
       _private.useD3();
