@@ -4,13 +4,13 @@ import canAutoplay from 'can-autoplay';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
-import {normaliseData,aggregate} from './helperFunctions';
-import { D3BuildCircle } from './D3BuildCircle';
+import {aggregate, normaliseData} from './helperFunctions';
+import {D3BuildCircle} from './D3BuildCircle';
 
- /*   const fps = 60;
-     setTimeout(() => {
-          this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
-        }, 1000 / fps);*/
+/*   const fps = 60;
+    setTimeout(() => {
+         this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
+       }, 1000 / fps);*/
 
 const Chemz = (function () {
   const _private: {
@@ -121,7 +121,6 @@ const Chemz = (function () {
         );
         const myResult = getMyResult(this.frequencyArray);
         this.svgCircle.update(myResult);
-        //console.dir(Array.isArray(myResult));
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -149,12 +148,12 @@ const Chemz = (function () {
     isPlaying: function (): void {
       this.sound.once('play', () => {
         console.log('isPlaying');
-        if(!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
+        if (!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
       });
     }
   };
   return {
-    facade: function (args:any): void {
+    facade: function (args: any): void {
       const {url, playIconClassElement, towerBlockElement} = args;
       _private.init(playIconClassElement, towerBlockElement);
       _private.createAudioContext(url);

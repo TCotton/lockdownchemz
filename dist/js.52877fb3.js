@@ -41919,8 +41919,12 @@ var normaliseData = function normaliseData(frequencyArray) {
 
 exports.normaliseData = normaliseData;
 
-var aggregate = function aggregate(frequencyArray) {
-  var numberOfBars = Array.from(Array(6).keys());
+var aggregate = function aggregate(frequencyArray, num) {
+  if (num === void 0) {
+    num = 6;
+  }
+
+  var numberOfBars = Array.from(Array(num).keys());
   var aggregated = new Float32Array(numberOfBars);
   numberOfBars.forEach(function (x) {
     var lowerBound = Math.floor(x / numberOfBars.length * frequencyArray.length);
@@ -41937,46 +41941,12 @@ exports.aggregate = aggregate;
 },{"array-normalize":"node_modules/array-normalize/index.js"}],"js/D3BuildCircle.ts":[function(require,module,exports) {
 "use strict";
 
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.D3BuildCircle = void 0;
 
-var d3 = __importStar(require("d3"));
+var d3_1 = require("d3");
 
 var D3BuildCircle = function D3BuildCircle() {
   exports.D3BuildCircle.prototype.createElement = function () {
@@ -41989,7 +41959,7 @@ var D3BuildCircle = function D3BuildCircle() {
     var stroke = "hsla(0, 0%, 100%, 0.2)";
     var height = 300;
     var width = 300;
-    this.svgCircle = d3.select("#svg2").append("svg");
+    this.svgCircle = d3_1.select("#svg2").append("svg");
     this.svgCircle.attr("viewBox", "0 0 " + width + " " + height);
     this.svgCircle.attr("preserveaspectratio", "MidYMid meet");
     this.svgCircle.style('opacity', "0.5");
@@ -42003,8 +41973,8 @@ var D3BuildCircle = function D3BuildCircle() {
 
   exports.D3BuildCircle.prototype.update = function (objectData) {
     var arrayData = Object.values(objectData);
-    var circleRadius = d3.scaleLinear().domain([0, 1]).range([0, 150]);
-    var svgCircle = d3.selectAll('#svg2 circle');
+    var circleRadius = d3_1.scaleLinear().domain([0, 1]).range([0, 150]);
+    var svgCircle = d3_1.selectAll('#svg2 circle');
     svgCircle.data(arrayData).enter();
     svgCircle.attr("r", function (d) {
       return circleRadius(d);
@@ -42171,7 +42141,7 @@ var Chemz = function () {
         this.analyser.getFloatFrequencyData(this.frequencyArray);
         var getMyResult = compose_1.default(helperFunctions_1.aggregate, helperFunctions_1.normaliseData);
         var myResult = getMyResult(this.frequencyArray);
-        this.svgCircle.update(myResult); //console.dir(Array.isArray(myResult));
+        this.svgCircle.update(myResult);
       }
 
       if (!this.waveformArray.some(Boolean)) {
@@ -42275,7 +42245,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60317" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61622" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

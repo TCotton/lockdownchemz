@@ -1,11 +1,11 @@
 import normalize from 'array-normalize';
 
-const normaliseData = (frequencyArray: number[]): number[] => {
+const normaliseData = (frequencyArray: Float32Array): number[] => {
   return normalize(frequencyArray);
 }
 
-const aggregate = (frequencyArray: number[]): Float32Array => {
-  const numberOfBars = Array.from(Array(6).keys());
+const aggregate = (frequencyArray: number[], num: number = 6): Float32Array => {
+  const numberOfBars = Array.from(Array(num).keys());
   const aggregated = new Float32Array(numberOfBars);
 
   numberOfBars.forEach((x) => {
