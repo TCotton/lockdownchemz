@@ -172,7 +172,7 @@ const Chemz = (function () {
 const init = {...Chemz};
 win.onload = () => {
   init.facade({
-    url: require('../static/chemz.mp3'),
+    url: require('../static/chemz-edit.mp3'),
     playIconClassElement: <HTMLElement>doc.querySelector('.play_icon'),
     towerBlockElement: <HTMLElement>doc.querySelector('.towerblock')
   });

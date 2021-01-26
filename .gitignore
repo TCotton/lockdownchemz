@@ -9,3 +9,4 @@ node_modules
 yarn-error.log
 static/chemz.flac
 dist/chemz.flac
+dist
