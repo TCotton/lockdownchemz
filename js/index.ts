@@ -60,7 +60,8 @@ const Chemz = (function () {
       this.sound = new Howl({
         src: [url],
         autoplay: true,
-        preload: true,
+        preload: 'metadata',
+        html5: false,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
         },
