@@ -1,3 +1,15 @@
 {
-  minifySvg: false
+  minifySvg: {
+    plugins: [
+      {
+        collapseGroups: false
+      },
+      {
+        removeViewBox: false
+      },
+      {
+        "removeUnknownsAndDefaults": false
+      }
+    ]
+  }
 }
