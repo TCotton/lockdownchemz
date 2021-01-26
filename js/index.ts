@@ -5,6 +5,7 @@ import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
 import {normaliseData,aggregate} from './helperFunctions';
+import { D3BuildCircle } from './D3BuildCircle';
 
  /*   const fps = 60;
      setTimeout(() => {
@@ -34,6 +35,7 @@ const Chemz = (function () {
     isPlaying: () => void;
     buildD3: () => void;
     detectAutoplay: () => void;
+    svgCircle: object | null;
   } = {
     url: null,
     audioElement: null,
@@ -46,6 +48,7 @@ const Chemz = (function () {
     svg: null,
     towerBlockElement: null,
     frequencyArray: null,
+    svgCircle: null,
 
     init: function (element: HTMLElement, elementTwo: HTMLElement): void {
       this.playIconClassElement = element;
@@ -56,7 +59,7 @@ const Chemz = (function () {
 
       this.sound = new Howl({
         src: [url],
-        autoplay: false,
+        autoplay: true,
         preload: true,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
@@ -98,6 +101,8 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
+      this.svgCircle = new D3BuildCircle();
+      this.svgCircle.createElement();
     },
 
     requestAnimationFrameFnc: function (): void {
@@ -115,7 +120,8 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        console.dir(Array.isArray(myResult));
+        this.svgCircle.update(myResult);
+        //console.dir(Array.isArray(myResult));
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -130,7 +136,6 @@ const Chemz = (function () {
       const fftSize = this.analyser.fftSize;
 
       this.svg = createD3({height, width, fftSize});
-      this.svg.d3BuildCircle();
     },
 
     play: function (): void {
@@ -143,6 +148,7 @@ const Chemz = (function () {
 
     isPlaying: function (): void {
       this.sound.once('play', () => {
+        console.log('isPlaying');
         if(!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
       });
     }
@@ -158,8 +164,8 @@ const Chemz = (function () {
       _private.useD3();
       _private.buildD3();
       _private.requestAnimationFrameFnc();
-      //_private.play();
-      //_private.isPlaying();
+      _private.play();
+      _private.isPlaying();
     }
   }
 }());

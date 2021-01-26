@@ -5,7 +5,7 @@ const normaliseData = (frequencyArray: number[]): number[] => {
 }
 
 const aggregate = (frequencyArray: number[]): Float32Array => {
-  const numberOfBars = Array.from(Array(12).keys());
+  const numberOfBars = Array.from(Array(6).keys());
   const aggregated = new Float32Array(numberOfBars);
 
   numberOfBars.forEach((x) => {
