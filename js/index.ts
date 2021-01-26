@@ -56,7 +56,7 @@ const Chemz = (function () {
 
       this.sound = new Howl({
         src: [url],
-        autoplay: true,
+        autoplay: false,
         preload: true,
         onloaderror: function (id, err) {
           console.log('onloaderror ERROR', [id, err]);
@@ -101,7 +101,6 @@ const Chemz = (function () {
     },
 
     requestAnimationFrameFnc: function (): void {
-
       this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
       this.analyser.getFloatTimeDomainData(this.waveformArray)
       if (this.waveformArray.some(Boolean)) {
@@ -116,7 +115,7 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        console.dir(myResult);
+        console.dir(Array.isArray(myResult));
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -131,6 +130,7 @@ const Chemz = (function () {
       const fftSize = this.analyser.fftSize;
 
       this.svg = createD3({height, width, fftSize});
+      this.svg.d3BuildCircle();
     },
 
     play: function (): void {
@@ -158,8 +158,8 @@ const Chemz = (function () {
       _private.useD3();
       _private.buildD3();
       _private.requestAnimationFrameFnc();
-      _private.play();
-      _private.isPlaying();
+      //_private.play();
+      //_private.isPlaying();
     }
   }
 }());
