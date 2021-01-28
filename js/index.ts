@@ -6,6 +6,7 @@ import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
 import {aggregate, normaliseData} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
+import {D3BuildArc} from './D3BuildArc';
 
 /*   const fps = 60;
     setTimeout(() => {
@@ -36,6 +37,7 @@ const Chemz = (function () {
     buildD3: () => void;
     detectAutoplay: () => void;
     svgCircle: object | null;
+    svgArc: object | null;
   } = {
     url: null,
     audioElement: null,
@@ -49,6 +51,7 @@ const Chemz = (function () {
     towerBlockElement: null,
     frequencyArray: null,
     svgCircle: null,
+    svgArc: null,
 
     init: function (element: HTMLElement, elementTwo: HTMLElement): void {
       this.playIconClassElement = element;
@@ -102,8 +105,10 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
-      this.svgCircle = new D3BuildCircle();
-      this.svgCircle.createElement();
+     /* this.svgCircle = new D3BuildCircle();
+      this.svgCircle.createElement();*/
+      this.svgArc = new D3BuildArc();
+      this.svgArc.createElement();
     },
 
     requestAnimationFrameFnc: function (): void {
@@ -121,7 +126,8 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        this.svgCircle.update(myResult);
+        this.svgArc.update(myResult);
+       // this.svgCircle.update(myResult);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
