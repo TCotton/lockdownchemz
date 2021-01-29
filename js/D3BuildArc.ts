@@ -32,26 +32,31 @@ export const D3BuildArc = function () {
     svgCircle.append("path")
       .attr("d", this.buildArc(donutWidthOne, radiusOne))
       .attr('fill', colourOne)
+      .attr('id', 'colourOne')
       .attr("transform", "translate(150, 150)");
 
     svgCircle.append("path")
       .attr("d", this.buildArc(donutWidthTwo, radiusTwo))
       .attr('fill', colourTwo)
+      .attr('id', 'colourTwo')
       .attr("transform", "translate(150, 150)");
 
     svgCircle.append("path")
       .attr("d", this.buildArc(donutWidthThree, radiusThree))
       .attr('fill', colourThree)
+      .attr('id', 'colourThree')
       .attr("transform", "translate(150, 150)");
 
     svgCircle.append("path")
       .attr("d", this.buildArc(donutWidthFour, radiusFour))
       .attr('fill', colourFour)
+      .attr('id', 'colourFour')
       .attr("transform", "translate(150, 150)");
 
     svgCircle.append("path")
       .attr("d", this.buildArc(donutWidthFive, radiusFive))
       .attr('fill', colourFive)
+      .attr('id', 'colourFive')
       .attr("transform", "translate(150, 150)");
 
     /*  const svg = d3.select('#svg2').selectAll('path');
@@ -68,8 +73,25 @@ export const D3BuildArc = function () {
       .endAngle(2 * Math.PI);
   }
 
-  D3BuildArc.prototype.update = function (data: number[]) {
-    return data;
+  D3BuildArc.prototype.update = function (data: number[]):void {
+    const svg = d3.select('#svg2').selectAll('path');
+    svg.data(data).enter();
+    svg.attr('d', function(d:number, i:number) {
+      switch (i) {
+        case 0:
+         //return D3BuildArc.buildArc();
+        case 1:
+
+        case 2:
+
+        case 3:
+
+        case 4:
+
+        case 5:
+          return `hsla(0, 0%, 100%, ${opacity})`;
+      }
+    });
   }
 
 }
