@@ -5,16 +5,16 @@ export const D3BuildArc = function () {
   D3BuildArc.prototype.createElement = function (): void {
     const height = 300;
     const width = 300;
-    const radiusOne = Math.min(width, height) / 2;
-    const donutWidthOne = (radiusOne - (radiusOne / 6));
-    const radiusTwo = donutWidthOne;
-    const donutWidthTwo = (radiusTwo - (radiusOne / 6));
+    this.radiusOne = Math.min(width, height) / 2;
+    this.donutWidthOne = (this.radiusOne - (this.radiusOne / 6));
+    const radiusTwo = this.donutWidthOne;
+    const donutWidthTwo = (radiusTwo - (this.radiusOne / 6));
     const radiusThree = donutWidthTwo;
-    const donutWidthThree = (radiusThree - (radiusOne / 6));
+    const donutWidthThree = (radiusThree - (this.radiusOne / 6));
     const radiusFour = donutWidthThree;
-    const donutWidthFour = (radiusFour - (radiusOne / 6));
+    const donutWidthFour = (radiusFour - (this.radiusOne / 6));
     const radiusFive = donutWidthFour;
-    const donutWidthFive = (radiusFive - (radiusOne / 6));
+    const donutWidthFive = (radiusFive - (this.radiusOne / 6));
 
     const svgCircle = d3.select("#svg2").append("svg");
     svgCircle.attr("viewBox", `0 0 ${width} ${height}`);
@@ -30,7 +30,7 @@ export const D3BuildArc = function () {
     console.log(data[0]);
 
     svgCircle.append("path")
-      .attr("d", this.buildArc(donutWidthOne, radiusOne))
+      .attr("d", this.buildArc(this.donutWidthOne, this.radiusOne))
       .attr('fill', colourOne)
       .attr('id', 'colourOne')
       .attr("transform", "translate(150, 150)");
@@ -65,12 +65,12 @@ export const D3BuildArc = function () {
       svg.attr('fill', '#ffffff');*/
   }
 
-  D3BuildArc.prototype.buildArc = function (donutWidth: number, radius: number): Arc<any, DefaultArcObject> {
+  D3BuildArc.prototype.buildArc = function (donutWidth: number, radius: number, startAngle: number = 0 * (Math.PI / 180), endAngle: number = 2 * Math.PI): Arc<any, DefaultArcObject> {
     return d3.arc()
       .innerRadius(donutWidth)
       .outerRadius(radius)
-      .startAngle(0 * (Math.PI / 180))
-      .endAngle(2 * Math.PI);
+      .startAngle(startAngle)
+      .endAngle(endAngle);
   }
 
   D3BuildArc.prototype.update = function (data: number[]):void {
@@ -79,7 +79,7 @@ export const D3BuildArc = function () {
     svg.attr('d', function(d:number, i:number) {
       switch (i) {
         case 0:
-         //return D3BuildArc.buildArc();
+         return D3BuildArc.buildArc(this.donutWidthOne, this.radiusOne, 0, d);
         case 1:
 
         case 2:
