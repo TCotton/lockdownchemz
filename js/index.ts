@@ -101,8 +101,7 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
-      this.svgCircle = new D3BuildCircle();
-      this.svgCircle.createElement();
+      D3BuildIcosahedron.createElement();
      /* D3BuildIcosahedron.createElement();*/
   /*    this.svgCircle = new D3BuildCircle();
       this.svgCircle.createElement();*/
@@ -126,7 +125,7 @@ const Chemz = (function () {
         );
         const myResult = getMyResult(this.frequencyArray);
         //this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
-        //D3BuildIcosahedron.update();
+        D3BuildIcosahedron.update();
         //if ((this.globalAnimationID % 360) === 0) { }
 
         this.svgCircle.update(myResult);

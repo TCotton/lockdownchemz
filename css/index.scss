@@ -203,13 +203,13 @@ img.bg {
 
 @keyframes filter {
   0% {
-    filter: drop-shadow(16px 16px 20px hsla(0,0,0,100%)) invert(80%);
+    filter: drop-shadow(16px 16px 20px black) invert(80%);
   }
   50% {
-    filter: drop-shadow(5px 5px 10px hsla(0,0,0,100%)) invert(100%);
+    filter: drop-shadow(5px 5px 10px black) invert(100%);
   }
   100% {
-    filter: drop-shadow(16px 16px 20px hsla(0,0,0,100%)) invert(80%);
+    filter: drop-shadow(16px 16px 20px black) invert(80%);
   }
 }
 
