@@ -101,7 +101,9 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
-      D3BuildIcosahedron.createElement();
+      this.svgCircle = new D3BuildCircle();
+      this.svgCircle.createElement();
+     /* D3BuildIcosahedron.createElement();*/
   /*    this.svgCircle = new D3BuildCircle();
       this.svgCircle.createElement();*/
       //this.svgArc = new D3BuildArc();
@@ -123,11 +125,11 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-       // this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
-
+        //this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
+        //D3BuildIcosahedron.update();
         //if ((this.globalAnimationID % 360) === 0) { }
 
-        //this.svgCircle.update(myResult);
+        this.svgCircle.update(myResult);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {

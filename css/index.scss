@@ -8,7 +8,7 @@ body {
   font-weight: 400;
   line-height: #{$baseLineHeight};
   color: white;
-  //overflow: hidden;
+  overflow: hidden;
 }
 
 img.bg {
@@ -150,7 +150,7 @@ img.bg {
   }
 }
 #svg2 {
-  filter: drop-shadow(16px 16px 20px black) invert(75%);
+  filter: drop-shadow(5px 5px 10px black) invert(100%);
 }
 
 .towerblock {
@@ -191,16 +191,26 @@ img.bg {
   right: 100px;
   width: 300px;
   height: 300px;
-  //background: white;
 }
 #svg3 {
   position: absolute;
   top: 100px;
-  left: 100px;
+  right: 100px;
   width: 600px;
   height: 600px;
-  //background: white;
-  z-index: 9999;
+  animation: 5s filter infinite;
+}
+
+@keyframes filter {
+  0% {
+    filter: drop-shadow(16px 16px 20px hsla(0,0,0,100%)) invert(80%);
+  }
+  50% {
+    filter: drop-shadow(5px 5px 10px hsla(0,0,0,100%)) invert(100%);
+  }
+  100% {
+    filter: drop-shadow(16px 16px 20px hsla(0,0,0,100%)) invert(80%);
+  }
 }
 
 .play_icon {
