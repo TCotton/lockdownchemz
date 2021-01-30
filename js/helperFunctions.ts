@@ -1,9 +1,8 @@
 import normalize from 'array-normalize';
 import {zip} from 'lodash';
 
-const covertToArrayRemoveLastValue = (anObject: object) => {
+const covertToArrayRemoveLastValue = (anObject: object):array[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
-
 }
 
 export const createArcArray = (data: object, height: number = 300, width: number = 300): number[] => {
@@ -18,11 +17,11 @@ export const createArcArray = (data: object, height: number = 300, width: number
   const radiusFive = donutWidthFour;
   const donutWidthFive = (radiusFive - (radiusOne / 6));
 
-  const colourOne = 'hsla(199, 67%, 75%, 100%)';
-  const colourTwo = 'hsla(188, 76%, 37%, 100%)';
-  const colourThree = 'hsla(201, 100%, 19%, 100%)';
-  const colourFour = 'hsla(210, 100%, 26%, 100%)';
-  const colourFive = 'hsla(61, 92%, 71%, 100%)';
+  const colourOne = 'hsla(16.8,71.4%,93.1%,100%)';
+  const colourTwo = 'hsla(257.1,16.5%,33.3%,100%)';
+  const colourThree = 'hsla(19.4,100%,86.1%,100%)';
+  const colourFour = 'hsla(20,100%,90.6%,100%)';
+  const colourFive = 'hsla(4.5,46.9%,72%,100%)';
 
   let dataTwo, dataThree, dataFour;
 

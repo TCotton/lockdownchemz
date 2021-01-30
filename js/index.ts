@@ -7,12 +7,6 @@ import {createD3} from './d3script';
 import {aggregate, normaliseData, averageEvery} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
 import {D3BuildArc} from './D3BuildArc';
-import * as d3 from 'd3';
-
-/*   const fps = 60;
-    setTimeout(() => {
-         this.globalAnimationID = win.requestAnimationFrame(this.requestAnimationFrameFnc.bind(this));
-       }, 1000 / fps);*/
 
 const Chemz = (function () {
   const _private: {
