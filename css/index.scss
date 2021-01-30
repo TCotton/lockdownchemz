@@ -8,7 +8,7 @@ body {
   font-weight: 400;
   line-height: #{$baseLineHeight};
   color: white;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 img.bg {
@@ -142,7 +142,6 @@ img.bg {
   .frequency {
     rect {
       fill: white;
-
       &.background {
         fill: none;
         stroke: none;
@@ -151,9 +150,7 @@ img.bg {
   }
 }
 #svg2 {
-  path {
-    opacity: 0.5
-  }
+  filter: drop-shadow(16px 16px 20px black) invert(75%);
 }
 
 .towerblock {
@@ -164,7 +161,7 @@ img.bg {
   animation-iteration-count: infinite;
   // height: 100vh; - put media query here
   @media screen and (max-height: 1000px) {
-    //height: 100vh;
+    height: 100vh;
   }
   svg {
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 1));
@@ -188,12 +185,22 @@ img.bg {
   --width-outline: 1px;
 }
 
-#svg2 {
+#svg1, #svg2 {
   position: absolute;
   top: 100px;
   right: 100px;
   width: 300px;
   height: 300px;
+  //background: white;
+}
+#svg3 {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 600px;
+  height: 600px;
+  //background: white;
+  z-index: 9999;
 }
 
 .play_icon {

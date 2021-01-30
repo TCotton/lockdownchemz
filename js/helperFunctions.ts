@@ -1,7 +1,7 @@
 import normalize from 'array-normalize';
 import {zip} from 'lodash';
 
-const covertToArrayRemoveLastValue = (anObject: object):array[] => {
+const covertToArrayRemoveLastValue = (anObject: object): array[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
 }
 
@@ -57,6 +57,38 @@ const average = (nums) => {
   return nums.reduce((a, b) => (a + b)) / nums.length;
 }
 
+const icosahedronSides = () => {
+  const faces = [];
+  const y = (Math.atan2(1, 2) * 180) / Math.PI;
+  for (var x = 0; x < 360; x += 72) {
+    faces.push([
+      [x + 0, -90],
+      [x + 0, -y],
+      [x + 72, -y],
+      [x + 0, -90]
+    ]);
+    faces.push([
+      [x + 0, -y],
+      [x + 72, -y],
+      [x + 36, y],
+      [x + 0, -y]
+    ]);
+    faces.push([
+      [x + 36, y],
+      [x + 0, -y],
+      [x - 36, y],
+      [x + 36, y]
+    ]);
+    faces.push([
+      [x - 36, 90],
+      [x - 36, y],
+      [x + 36, y],
+      [x + 36, 90]
+    ]);
+  }
+  return faces;
+}
+
 const averageEvery = (arr: Float32Array, n: number): number[] | boolan => {
 
   // if we have neither an arr, or an n
@@ -109,4 +141,4 @@ const averageEvery = (arr: Float32Array, n: number): number[] | boolan => {
   );
 }
 
-export {normaliseData, aggregate, average, averageEvery}
+export {normaliseData, aggregate, average, averageEvery, icosahedronSides}

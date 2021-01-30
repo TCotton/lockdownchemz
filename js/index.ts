@@ -7,6 +7,7 @@ import {createD3} from './d3script';
 import {aggregate, normaliseData, averageEvery} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
 import {D3BuildArc} from './D3BuildArc';
+import {D3BuildIcosahedron} from './D3BuildIcosahedron';
 
 const Chemz = (function () {
   const _private: {
@@ -100,10 +101,11 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
+      D3BuildIcosahedron.createElement();
   /*    this.svgCircle = new D3BuildCircle();
       this.svgCircle.createElement();*/
-      this.svgArc = new D3BuildArc();
-      this.svgArc.createElement();
+      //this.svgArc = new D3BuildArc();
+      //this.svgArc.createElement();
     },
 
     requestAnimationFrameFnc: function (): void {
@@ -121,7 +123,7 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
+       // this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
 
         //if ((this.globalAnimationID % 360) === 0) { }
 
