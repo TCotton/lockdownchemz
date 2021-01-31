@@ -15,7 +15,7 @@ export const D3BuildCircle = function () {
     this.svgCircle = select("#svg1").append("svg");
     this.svgCircle.attr("viewBox", `0 0 ${width} ${height}`)
     this.svgCircle.attr("preserveaspectratio", "MidYMid meet");
-    this.svgCircle.style('opacity', "0.5");
+    this.svgCircle.style('opacity', "0.6");
 
     this.svgCircle
       .append("circle")
