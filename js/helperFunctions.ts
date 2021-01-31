@@ -1,5 +1,5 @@
 import normalize from 'array-normalize';
-import {zip} from 'lodash';
+import zip from 'lodash.zip';
 
 const covertToArrayRemoveLastValue = (anObject: object): array[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));

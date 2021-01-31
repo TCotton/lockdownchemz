@@ -20,6 +20,6 @@
     }
   }
 }());
-
+import 'get-float-time-domain-data';
 // Place any jQuery/helper plugins in here.
 
