@@ -49,7 +49,6 @@ a:active {
 
 .grid {
   display: grid;
-  //grid-template-columns: repeat(3, minmax(10px, 1fr));
   grid-template-rows: repeat(2, auto);
   position: relative;
   z-index: 3;
@@ -61,7 +60,18 @@ a:active {
     grid-template-columns: repeat(2, minmax(10px, 1fr));
   }
   > div {
-    background: rgba(255,255,255,0.5);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    .author {
+      background: url('../assets/parallelogram.svg') no-repeat center center;
+      padding: var(--marginx6) var(--marginx7);
+      filter: drop-shadow(1px 1px 3px white);
+      margin: 0 0 2px;
+      .internal {
+        text-align: center;
+      }
+    }
   }
   .navigation {
     display: grid;
@@ -87,17 +97,21 @@ a:active {
     justify-content: flex-end;
   }
 
+  .external {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+  }
+
   .header {
     // parent
     display: grid;
-    //grid-template-columns: repeat(3, minmax(10px, 1fr));
   }
 
   .main {
     // parent;
     display: grid;
-    margin-top: var(--marginx6);
-    //grid-template-columns: repeat(3, minmax(10px, 1fr));
+    margin-top: 15vh;
   }
 }
 
@@ -140,7 +154,11 @@ a:active {
   pointer-events: none;
   // height: 100vh; - put media query here
   @media screen and (max-height: 1000px) {
-    height: 100vh;
+    //height: 100vh;
+  }
+  @media screen and (max-width: 1400px) {
+    top: auto;
+    bottom: 0;
   }
 
   svg {
