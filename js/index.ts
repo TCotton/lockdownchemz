@@ -1,10 +1,10 @@
 import "./plugins";
-import flowright from 'lodash.flowright';
+import compose from 'lodash/fp/compose';
 import canAutoplay from 'can-autoplay';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
 import {createD3} from './d3script';
-import {aggregate, normaliseData, averageEvery} from './helperFunctions';
+import {aggregate, normaliseData} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
 import {D3BuildArc} from './D3BuildArc';
 import {D3BuildIcosahedron} from './D3BuildIcosahedron';
@@ -125,7 +125,7 @@ const Chemz = (function () {
         this.svg.d3Path(this.waveformArray);
         this.analyser.getFloatFrequencyData(this.frequencyArray);
 
-        const getMyResult = flowright(
+        const getMyResult = compose(
           aggregate,
           normaliseData,
         );
@@ -169,6 +169,9 @@ const Chemz = (function () {
     },
     //TODO refactor
     displayD3BuildIcosahedron: function (): void {
+
+
+
       if (doc.querySelector('#svg3').classList.contains('hidden')) doc.querySelector('#svg3').classList.remove('hidden');
       if (!doc.querySelector('#svg2').classList.contains('hidden')) doc.querySelector('#svg2').classList.add('hidden');
       if (!doc.querySelector('#svg1').classList.contains('hidden')) doc.querySelector('#svg1').classList.add('hidden');

@@ -13,9 +13,15 @@ body {
 
 html {
   font-size: #{$baseFontSize};
-  overflow-x: hidden;
+  overflow: hidden;
   background: black;
+  @media screen and (max-width: 1400px) {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
+
+
 
 p {
   @include font-calculator($baseFontFamily, 16px);
@@ -154,7 +160,7 @@ a:active {
   pointer-events: none;
   // height: 100vh; - put media query here
   @media screen and (max-height: 1000px) {
-    //height: 100vh;
+    height: 100vh;
   }
   @media screen and (max-width: 1400px) {
     top: auto;
