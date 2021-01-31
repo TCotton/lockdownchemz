@@ -41,6 +41,7 @@ const Chemz = (function () {
     addFlashClassIcosahedron: () => void;
     addFlashClassCircle: () => void;
     addFlashIcosahedron: () => void;
+    flags: { arc: boolean, circle: boolean, i: boolean };
   } = {
     url: null,
     audioElement: null,
@@ -55,6 +56,11 @@ const Chemz = (function () {
     frequencyArray: null,
     svgCircle: null,
     svgArc: null,
+    flags: {
+      i: true,
+      arc: false,
+      circle: false
+    },
 
     init: function (element: HTMLElement, elementTwo: HTMLElement): void {
       this.playIconClassElement = element;
@@ -130,9 +136,15 @@ const Chemz = (function () {
           normaliseData,
         );
         const myResult = getMyResult(this.frequencyArray);
-        D3BuildIcosahedron.update();
-        this.svgArc.update(myResult);
-        this.svgCircle.update(myResult);
+        if (this.flags.i) {
+          D3BuildIcosahedron.update();
+        }
+        if (this.flags.arc) {
+          this.svgArc.update(myResult);
+        }
+        if (this.flags.circle) {
+          this.svgCircle.update(myResult);
+        }
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -149,19 +161,19 @@ const Chemz = (function () {
 
         // @ts-ignore
         if (event.target.id === 'three') {
-          console.log('three')
+          console.log('three');
           this.displayD3BuildArc();
         }
 
         // @ts-ignore
         if (event.target.id === 'two') {
-          console.log('two')
+          console.log('two');
           this.displayD3BuildCircle();
         }
 
         // @ts-ignore
         if (event.target.id === 'one') {
-          console.log('one')
+          console.log('one');
           this.displayD3BuildIcosahedron();
         }
 
@@ -170,7 +182,11 @@ const Chemz = (function () {
     //TODO refactor
     displayD3BuildIcosahedron: function (): void {
 
-
+      this.flags = {
+        circle: false,
+        arc: false,
+        i: true
+      };
 
       if (doc.querySelector('#svg3').classList.contains('hidden')) doc.querySelector('#svg3').classList.remove('hidden');
       if (!doc.querySelector('#svg2').classList.contains('hidden')) doc.querySelector('#svg2').classList.add('hidden');
@@ -182,6 +198,13 @@ const Chemz = (function () {
     },
 
     displayD3BuildCircle: function (): void {
+
+      this.flags = {
+        circle: true,
+        arc: false,
+        i: false
+      };
+
       if (doc.querySelector('#svg1').classList.contains('hidden')) doc.querySelector('#svg1').classList.remove('hidden');
       if (!doc.querySelector('#svg2').classList.contains('hidden')) doc.querySelector('#svg2').classList.add('hidden');
       if (!doc.querySelector('#svg3').classList.contains('hidden')) doc.querySelector('#svg3').classList.add('hidden');
@@ -192,6 +215,13 @@ const Chemz = (function () {
     },
 
     displayD3BuildArc: function (): void {
+
+      this.flags = {
+        circle: false,
+        arc: true,
+        i: false
+      };
+
       if (doc.querySelector('#svg2').classList.contains('hidden')) doc.querySelector('#svg2').classList.remove('hidden');
       if (!doc.querySelector('#svg1').classList.contains('hidden')) doc.querySelector('#svg1').classList.add('hidden');
       if (!doc.querySelector('#svg3').classList.contains('hidden')) doc.querySelector('#svg3').classList.add('hidden');
