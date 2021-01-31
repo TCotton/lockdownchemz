@@ -17,11 +17,11 @@ export const createArcArray = (data: object, height: number = 300, width: number
   const radiusFive = donutWidthFour;
   const donutWidthFive = (radiusFive - (radiusOne / 6));
 
-  const colourOne = 'hsla(16.8,71.4%,93.1%,100%)';
-  const colourTwo = 'hsla(257.1,16.5%,33.3%,100%)';
-  const colourThree = 'hsla(19.4,100%,86.1%,100%)';
-  const colourFour = 'hsla(20,100%,90.6%,100%)';
-  const colourFive = 'hsla(4.5,46.9%,72%,100%)';
+  const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
+  const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
+  const colourThree = 'hsla(200.8,100%,18.6%,100%)';
+  const colourFour = 'hsla(209.5,100%,25.9%,100%)';
+  const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
 
   let dataTwo, dataThree, dataFour;
 
@@ -89,7 +89,7 @@ const icosahedronSides = () => {
   return faces;
 }
 
-const averageEvery = (arr: Float32Array, n: number): number[] | boolan => {
+const averageEvery = (arr: Float32Array, n: number): number[] | boolean => {
 
   // if we have neither an arr, or an n
   // variable we quit here:

@@ -8,6 +8,7 @@ import {aggregate, normaliseData, averageEvery} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
 import {D3BuildArc} from './D3BuildArc';
 import {D3BuildIcosahedron} from './D3BuildIcosahedron';
+import { ConsoleReporter } from "jasmine";
 
 const Chemz = (function () {
   const _private: {
@@ -34,6 +35,9 @@ const Chemz = (function () {
     detectAutoplay: () => void;
     svgCircle: object | null;
     svgArc: object | null;
+    displayD3BuildIcosahedron: () => void;
+    displayD3BuildCircle: () => void;
+    displayD3BuildArc: () => void;
   } = {
     url: null,
     audioElement: null,
@@ -119,22 +123,43 @@ const Chemz = (function () {
         this.svg.d3Path(this.waveformArray);
         this.analyser.getFloatFrequencyData(this.frequencyArray);
 
-        const getMyResult = compose(
+        /*const getMyResult = compose(
           aggregate,
           normaliseData,
         );
-        const myResult = getMyResult(this.frequencyArray);
-        //this.svgArc.update(averageEvery(this.frequencyArray, this.frequencyArray.length / 5));
+        const myResult = getMyResult(this.frequencyArray);*/
         D3BuildIcosahedron.update();
-        //if ((this.globalAnimationID % 360) === 0) { }
 
-        this.svgCircle.update(myResult);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
           this.towerBlockElement.classList.remove('animation');
         }
       }
+    },
+
+    displayD3BuildIcosahedron: function(): void {
+      if(document.querySelector('#svg3').classList.contains('hidden')) this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg2').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg1').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+
+      D3BuildIcosahedron.update();
+    },
+
+    displayD3BuildCircle: function(data:number[]): void {
+      if(document.querySelector('#svg1').classList.contains('hidden')) this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg2').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg3').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+
+      this.svgCircle.update(data);
+    },
+
+    displayD3BuildArc: function(frequencyArray:Float32Array): void {
+      if(document.querySelector('#svg2').classList.contains('hidden')) this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg1').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+      !document.querySelector('#svg3').classList.contains('hidden') ? this.playIconClassElement.classList.add('hidden') : this.playIconClassElement.classList.remove('hidden');
+
+      this.svgArc.update(averageEvery(frequencyArray, frequencyArray.length / 5));
     },
 
     useD3: function (): void {

@@ -4,7 +4,7 @@ import {icosahedronSides} from "./helperFunctions";
 export const D3BuildIcosahedron = {
   createElement: function () {
     const height = 500;
-    const width = 500 / 0.52083333333;
+    const width = 800;
     this.velocity = [.010, .005];
     this.t0 = Date.now();
 

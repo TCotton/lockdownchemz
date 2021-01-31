@@ -3,11 +3,11 @@ import { select, scaleLinear, selectAll } from "d3";
 export const D3BuildCircle = function () {
 
   D3BuildCircle.prototype.createElement = function (): void {
-    const colourOne = "hsla(42, 100%, 59%, 1)";
-    const colourTwo = "hsla(41, 100%, 70%, 1)";
-    const colourThree = "hsla(42, 100%, 81%, 1)";
-    const colourFour = "hsla(45, 100%, 89%, 1)";
-    const colourFive = "hsla(174, 43%, 56%, 1)";
+    const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
+    const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
+    const colourThree = 'hsla(200.8,100%,18.6%,100%)';
+    const colourFour = 'hsla(209.5,100%,25.9%,100%)';
+    const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
     const colourSix = "hsla(45, 100%, 89%, 1)";
     const stroke = "hsla(0, 0%, 100%, 0.2)";
     const height = 300;
@@ -90,15 +90,15 @@ export const D3BuildCircle = function () {
       const opacity = (d * 100);
       switch (i) {
         case 0:
-          return `hsla(42, 100%, 59%, ${opacity})`;
+          return `hsla(199.3,66.7%,75.3%, ${opacity})`;
         case 1:
-          return `hsla(41, 100%, 70%, ${opacity})`;
+          return `hsla(187.6,76.5%,36.7%, ${opacity})`;
         case 2:
-          return `hsla(42, 100%, 81%, ${opacity})`;
+          return `hsla(200.8,100%,18.6%, ${opacity})`;
         case 3:
-          return `hsla(174, 43%, 56%, ${opacity})`;
+          return `hsla(209.5,100%,25.9%, ${opacity})`;
         case 4:
-          return `hsla(45, 100%, 89%, ${opacity})`;
+          return `hsla(60.9,91.8%,71.2%, ${opacity})`;
         case 5:
           return `hsla(0, 0%, 100%, ${opacity})`;
       }
