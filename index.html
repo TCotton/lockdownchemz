@@ -15,19 +15,48 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="static/chemz.mp3" as="audio" type="audio/mp3">
   <!-- Place favicon.ico in the root directory -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.scss">
   <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
-<img width="5760" height="3840" src="assets/background-small.jpg" alt="" class="bg"/>
 
 <!-- Add your site or application content here -->
-<div id="svg"></div>
-<div id="svg1"></div>
-<div id="svg2"></div>
-<div id="svg3"></div>
 
+<img width="5760" height="3840" src="assets/background-small.jpg" alt="" class="bg"/>
+
+<main class="grid">
+  <article class="header">
+    <div class="info_track">
+      <div class="content">
+        <p><a href="https://burial.bandcamp.com/album/chemz-dolphinz" target="_blank" rel="noopener noreferrer">You can buy the full version of Chemz by Burial together with the track Dolphinz on Bandcamp <img src="assets/external-link-alt-solid.svg" width="16" height="16" alt=""/></a></p>
+      </div>
+    </div>
+    <div class="navigation">
+      <ul>
+        <li id="one">One</li>
+        <li id="two">Two</li>
+        <li id="three">Three</li>
+        <li id="four">Four</li>
+      </ul>
+      <div class="views">
+        <div id="svg1"></div>
+        <div id="svg2"></div>
+        <div id="svg3"></div>
+      </div>
+    </div>
+  </article>
+  <div class="main">
+    <aside class="author content">
+     <p>The author is Andy Walpole</p>
+    </aside>
+  </div>
+</main>
+<div class="waveform-wrapper">
+  <div id="svg"></div>
+</div>
 <div class="parallelogram-wrapper">
   <div class="parallelogram"></div>
 </div>
@@ -35,8 +64,6 @@
 <div class="play_icon hidden">
   <img src="static/play-button-svgrepo-com.svg" alt="Play music" width="160" height="160"/>
 </div>
-
-<script src="js/index.ts"></script>
 <div class="towerblock">
   <svg xmlns="http://www.w3.org/2000/svg" id="body_1" width="2386" height="1606" viewBox="0 0 2386 1606"
        preserveAspectRatio="xMidYMid meet">
@@ -1818,10 +1845,12 @@
     </g>
   </svg>
 </div>
+<script src="js/index.ts"></script>
+
 
 <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 <script>
-  window.ga = function () {
+/*  window.ga = function () {
     ga.q.push(arguments)
   };
   ga.q = [];
@@ -1829,7 +1858,7 @@
   ga('create', 'UA-XXXXX-Y', 'auto');
   ga('set', 'anonymizeIp', true);
   ga('set', 'transport', 'beacon');
-  ga('send', 'pageview')
+  ga('send', 'pageview')*/
 </script>
 <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>

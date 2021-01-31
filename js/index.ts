@@ -105,7 +105,11 @@ const Chemz = (function () {
 
     buildD3: function (): void {
       this.svg.d3Build();
-      D3BuildIcosahedron.createElement();
+      this.svgCircle = new D3BuildCircle();
+      this.svgCircle.createElement();
+      //D3BuildIcosahedron.createElement();
+    /*  this.svgArc = new D3BuildArc();
+      this.svgArc.createElement();*/
      /* D3BuildIcosahedron.createElement();*/
   /*    this.svgCircle = new D3BuildCircle();
       this.svgCircle.createElement();*/
@@ -123,12 +127,15 @@ const Chemz = (function () {
         this.svg.d3Path(this.waveformArray);
         this.analyser.getFloatFrequencyData(this.frequencyArray);
 
-        /*const getMyResult = compose(
+        const getMyResult = compose(
           aggregate,
           normaliseData,
         );
-        const myResult = getMyResult(this.frequencyArray);*/
-        D3BuildIcosahedron.update();
+        const myResult = getMyResult(this.frequencyArray);
+
+        //this.svgArc.update(myResult);
+        this.svgCircle.update(myResult);
+        //D3BuildIcosahedron.update();
 
       }
       if (!this.waveformArray.some(Boolean)) {

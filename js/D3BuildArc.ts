@@ -37,7 +37,10 @@ export const D3BuildArc = function () {
       .attr('d', this.arc)
       .attr('fill', function (d: object) {
         return d[1];
-      });
+      })
+      .attr('style', `opacity: 0.6`)
+      .attr('stroke', '#ffffff')
+      .attr('stroke-width', '1');
 
     d3Arc.exit().remove();
   }
