@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import {geoOrthographic,select} from 'd3';
 import {icosahedronSides} from "./helperFunctions";
 
 export const D3BuildIcosahedron = {
@@ -15,10 +15,10 @@ export const D3BuildIcosahedron = {
     const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
     this.arrayOfColours = [colourOne, colourTwo, colourThree, colourFour, colourFive];
 
-    this.projection = d3.geoOrthographic()
+    this.projection = geoOrthographic()
       .scale(height / 2 - 10);
 
-    this.svg = d3.select("#svg3")
+    this.svg = select("#svg3")
       .append("svg")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("preserveaspectratio", "MidYMid meet");
