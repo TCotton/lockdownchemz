@@ -1,7 +1,7 @@
 import normalize from 'array-normalize';
 import {zip} from 'lodash';
 
-const covertToArrayRemoveLastValue = (anObject: object): array[] => {
+const covertToArrayRemoveLastValue = (anObject: object): number[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
 }
 
@@ -53,7 +53,7 @@ const aggregate = (frequencyArray: number[], num: number = 6): Float32Array => {
   return aggregated;
 }
 
-const average = (nums) => {
+const average = (nums:number[]) => {
   return nums.reduce((a, b) => (a + b)) / nums.length;
 }
 
@@ -98,8 +98,7 @@ const averageEvery = (arr: Float32Array, n: number): number[] | boolean => {
   }
 
   // imported, convert typedarray to array
-  // @ts-ignore
-  const newArray = [...arr];
+  const newArray:Array<number> = [...arr];
 
   // creating an variable by the name of 'groups'
   // using an array-literal:
@@ -132,7 +131,7 @@ const averageEvery = (arr: Float32Array, n: number): number[] | boolean => {
         // from the last iteration;
         // 'b' : the current number of the Array
         // of Numbers over which we're iterating:
-        (a, b) => a + b
+        (a:number, b:number) => a + b
 
         // once we find the sum, we then divide that
         // sum by the number of Array-elements to find
