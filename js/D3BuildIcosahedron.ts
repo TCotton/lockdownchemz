@@ -8,11 +8,11 @@ export const D3BuildIcosahedron = {
     this.velocity = [.010, .005];
     this.t0 = Date.now();
 
-    const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
-    const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
-    const colourThree = 'hsla(200.8,100%,18.6%,100%)';
-    const colourFour = 'hsla(209.5,100%,25.9%,100%)';
-    const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
+    const colourOne = 'hsl(35.5,65.3%,46.3%)';
+  const colourTwo = 'hsl(22.5,14.3%,11%)';
+  const colourThree = 'hsl(44.4,36%,85.3%)';
+  const colourFour = 'hsl(27.8,59.3%,22.2%)';
+  const colourFive = 'hsl(44.4,37%,50.7%)';
     this.arrayOfColours = [colourOne, colourTwo, colourThree, colourFour, colourFive];
 
     this.projection = geoOrthographic()
