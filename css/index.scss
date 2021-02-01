@@ -76,7 +76,6 @@ a:active {
     .author {
       background: url('../assets/parallelogram.svg') no-repeat center center;
       padding: var(--marginx6) var(--marginx7);
-      filter: drop-shadow(1px 1px 3px white);
       margin: 0 0 2px;
       .internal {
         text-align: center;
@@ -100,13 +99,9 @@ a:active {
     li {
       padding: 0 20px;
       background: url('../assets/parallelogram.svg') no-repeat center center;
-      filter: drop-shadow(1px 1px 1px white);
       cursor: pointer;
       mix-blend-mode: soft-light;
       transition: filter 0.2s;
-      &:hover {
-        filter: drop-shadow(0px 0px 3px white);
-      }
     }
   }
 
@@ -139,7 +134,6 @@ a:active {
 .info_track {
   width: 500px;
   height: 200px;
-  filter: drop-shadow(2px 2px 7px #ffffff);
   @media screen and (max-width: 1201px) {
     width: auto;
     height: auto;
