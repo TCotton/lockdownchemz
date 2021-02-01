@@ -13,25 +13,25 @@ const Chemz = (function () {
   const _private: {
     play: () => void;
     init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement) => void;
-    ctx: AudioContext | null;
-    playIconClassElement: HTMLElement | null;
-    towerBlockElement: HTMLElement | null;
+    ctx: AudioContext;
+    playIconClassElement: HTMLElement;
+    towerBlockElement: HTMLElement;
     svgDomOne: HTMLElement;
     svgDomTwo: HTMLElement;
     svgDomThree: HTMLElement;
     url: string | null;
     waveformArray: Float32Array[] | null;
     frequencyArray: Float32Array[] | null;
-    analyser: AudioContext | null;
+    analyser: AudioContext;
     createAudioContext: (url: string) => void;
-    audioElement: HTMLAudioElement | null;
+    audioElement: HTMLAudioElement;
     createNodes: () => void;
     createDestination: () => void;
     requestAnimationFrameFnc: () => void;
     globalAnimationID: number | null;
-    sound: Howl | null;
+    sound: Howl;
     useD3: () => void;
-    svg: object | null;
+    svg: object;
     isPlaying: () => void;
     buildD3: () => void;
     detectAutoplay: () => void;
@@ -47,15 +47,8 @@ const Chemz = (function () {
     flags: { arc: boolean, circle: boolean, i: boolean };
   } = {
     url: null,
-    audioElement: null,
-    ctx: null,
-    analyser: null,
     waveformArray: null,
-    playIconClassElement: null,
     globalAnimationID: null,
-    sound: null,
-    svg: null,
-    towerBlockElement: null,
     frequencyArray: null,
     svgCircle: null,
     svgArc: null,
