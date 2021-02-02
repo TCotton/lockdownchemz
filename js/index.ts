@@ -13,13 +13,14 @@ import {D3BuildD3Stars} from "./D3BuildStars";
 const Chemz = (function () {
   const _private: {
     play: () => void;
-    init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement) => void;
+    init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement) => void;
     ctx: AudioContext;
     playIconClassElement: HTMLElement;
     towerBlockElement: HTMLElement;
     svgDomOne: HTMLElement;
     svgDomTwo: HTMLElement;
     svgDomThree: HTMLElement;
+    svgDomFour: HTMLElement;
     url: string | null;
     waveformArray: Float32Array[] | null;
     frequencyArray: Float32Array[] | null;
@@ -45,7 +46,8 @@ const Chemz = (function () {
     addFlashClassIcosahedron: () => void;
     addFlashClassCircle: () => void;
     addFlashIcosahedron: () => void;
-    flags: { arc: boolean, circle: boolean, i: boolean };
+    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean };
+    displayD3BuildStars: () => void;
   } = {
     url: null,
     waveformArray: null,
@@ -56,15 +58,17 @@ const Chemz = (function () {
     flags: {
       i: true,
       arc: false,
-      circle: false
+      circle: false,
+      stars: false,
     },
 
-    init: function (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement): void {
+    init: function (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement): void {
       this.playIconClassElement = element;
       this.towerBlockElement = elementTwo;
       this.svgDomOne = svgOne;
       this.svgDomTwo = svgTwo;
       this.svgDomThree = svgThree;
+      this.svgDomFour = svgFour;
     },
 
     createAudioContext: function (url: string): void {
@@ -146,6 +150,9 @@ const Chemz = (function () {
         if (this.flags.circle) {
           this.svgCircle.update(myResult);
         }
+        if (this.flags.stars) {
+          D3BuildD3Stars.update(myResult);
+        }
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -159,6 +166,12 @@ const Chemz = (function () {
       doc.querySelector('body').addEventListener('click', event => {
         // @ts-ignore
         if (Array.from(view).includes(event.target)) return;
+
+        // @ts-ignore
+        if (event.target.id === 'four') {
+          console.log('three');
+          this.displayD3BuildStars();
+        }
 
         // @ts-ignore
         if (event.target.id === 'three') {
@@ -186,16 +199,19 @@ const Chemz = (function () {
       this.flags = {
         circle: false,
         arc: false,
-        i: true
+        i: true,
+        stars: false
       };
 
       if (this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.remove('hidden');
       if (!this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.add('hidden');
       if (!this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.add('hidden');
+      if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
 
       if (!this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
       if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
+      if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
     },
 
     displayD3BuildCircle: function (): void {
@@ -203,16 +219,19 @@ const Chemz = (function () {
       this.flags = {
         circle: true,
         arc: false,
-        i: false
+        i: false,
+        stars: false
       };
 
       if (this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.remove('hidden');
       if (!this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.add('hidden');
       if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
+      if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
 
       if (!this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
+      if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
     },
 
     displayD3BuildArc: function (): void {
@@ -220,15 +239,38 @@ const Chemz = (function () {
       this.flags = {
         circle: false,
         arc: true,
-        i: false
+        i: false,
+        stars: false
       };
 
       if (this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.remove('hidden');
       if (!this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.add('hidden');
       if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
+      if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
 
       if (!this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.add('flash');
       if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
+      if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
+      if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
+    },
+
+    displayD3BuildStars: function (): void {
+
+      this.flags = {
+        circle: false,
+        arc: false,
+        i: false,
+        stars: true
+      };
+
+      if (this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.remove('hidden');
+      if (!this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.add('hidden');
+      if (!this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.add('hidden');
+      if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
+
+      if (!this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.add('flash');
+      if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
+      if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
     },
 
@@ -257,8 +299,8 @@ const Chemz = (function () {
   };
   return {
     facade: function (args: any): void {
-      const {url, playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree} = args;
-      _private.init(playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree);
+      const {url, playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour} = args;
+      _private.init(playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour);
       _private.createAudioContext(url);
       _private.detectAutoplay();
       _private.createNodes();
@@ -280,7 +322,8 @@ win.onload = () => {
     towerBlockElement: <HTMLElement>doc.querySelector('.towerblock'),
     svgOne: <HTMLElement>doc.querySelector('#svg1'),
     svgTwo: <HTMLElement>doc.querySelector('#svg2'),
-    svgThree: <HTMLElement>doc.querySelector('#svg3')
+    svgThree: <HTMLElement>doc.querySelector('#svg3'),
+    svgFour: <HTMLElement>doc.querySelector('#svg4')
   });
 }
 

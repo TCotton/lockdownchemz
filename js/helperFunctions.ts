@@ -1,18 +1,18 @@
 import normalize from 'array-normalize';
 import {zip} from 'lodash';
 
-const covertToArrayRemoveLastValue = (anObject: object): number[] => {
+export const covertToArrayRemoveLastValue = (anObject: object): number[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
 }
 
-export const newColourArray = (data) => {
+export const newColourArray = ([...data]) => {
   const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
   const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
   const colourThree = 'hsla(200.8,100%,18.6%,100%)';
   const colourFour = 'hsla(209.5,100%,25.9%,100%)';
   const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
   return Array.from(Array(data.length).keys()).map((x, i) => {
-    switch (i % 10) {
+    switch (i % 5) {
       case 0:
         return colourOne;
       case 1:
