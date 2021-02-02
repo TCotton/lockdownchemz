@@ -5,6 +5,30 @@ const covertToArrayRemoveLastValue = (anObject: object): number[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
 }
 
+export const newColourArray = (data) => {
+  const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
+  const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
+  const colourThree = 'hsla(200.8,100%,18.6%,100%)';
+  const colourFour = 'hsla(209.5,100%,25.9%,100%)';
+  const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
+  return Array.from(Array(data.length).keys()).map((x, i) => {
+    switch (i % 10) {
+      case 0:
+        return colourOne;
+      case 1:
+        return colourTwo;
+      case 2:
+        return colourThree;
+      case 4:
+        return colourFour;
+      case 5:
+        return colourFive; // TODO - why is this not working
+      default:
+        return colourFive;
+    }
+  });
+}
+
 export const createArcArray = (data: object, height: number = 300, width: number = 300): number[] => {
   const radiusOne = Math.min(width, height) / 2;
   const donutWidthOne = (radiusOne - (radiusOne / 6));

@@ -3,7 +3,7 @@ import {createArcArray} from './helperFunctions';
 
 export const D3BuildArc = function () {
 
-  D3BuildArc.prototype.createElement = function (): void {
+  D3BuildArc.prototype.createElement = function ():void  {
     const height = 300;
     const width = 300;
 
@@ -13,7 +13,7 @@ export const D3BuildArc = function () {
       .attr("preserveaspectratio", "MidYMid meet");
 
     this.svg.append("g").attr("transform", "translate(150, 150)").attr('class', 'arc');
-
+  //Arc<any, DefaultArcObject>
     this.arc = arc().innerRadius(function (d) {
       return d[2];
     }).outerRadius(function (d) {

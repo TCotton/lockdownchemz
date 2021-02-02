@@ -1,23 +1,43 @@
 import * as d3 from 'd3';
+import zip from 'lodash.zip';
+import {newColourArray} from "./helperFunctions";
 
 export const D3BuildD3Stars = {
-  createElement: function() {
-    const height = 300;
-    const width = 300;
+  createElement: function () {
+    this.height = 300;
+    this.width = 300;
+    const data = [0.1, 0.2, 0.3, 0.9, 1];
+    const colours = newColourArray(data);
+    const result = zip(data, colours);
 
-    const colourOne = 'hsla(199.3,66.7%,75.3%,100%)';
-    const colourTwo = 'hsla(187.6,76.5%,36.7%,100%)';
-    const colourThree = 'hsla(200.8,100%,18.6%,100%)';
-    const colourFour = 'hsla(209.5,100%,25.9%,100%)';
-    const colourFive = 'hsla(60.9,91.8%,71.2%,100%)';
-
-    this.svg = d3.select("#svg3")
+    this.svg = d3.select("#svg4")
       .append("svg")
-      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("viewBox", `0 0 ${this.width} ${this.height}`)
       .attr("preserveaspectratio", "MidYMid meet");
 
+    this.g = this.svg.append("g").attr("transform", "translate(0,0)").attr('class', 'stars');
+
+    this.x = d3.scaleBand().range([0, this.width]).domain(result.map(d => d[1])).padding(0);
+    this.y = d3.scaleLinear().range([this.height, 0]).domain([0, 1]);
+
+    this.elem = this.g.selectAll('.star').data(result);
+
+    this.elem.join('rect').attr("class", "star")
+      .attr('width', this.x.bandwidth)
+      .attr("height", d => {
+        return this.height - this.y(d[0]) - 1;
+      })
+      .attr('fill', () => {
+        return `#ffffff`;
+      })
+      .attr('style', (d) =>{
+        return `border-top: 1px solid ${d[1]}; opacity: 0.5`;
+      })
+      .attr('x', d => this.x(d[1]))
+      .attr('y', d => this.y(d[0]));
+
   },
-  update: function() {
+  update: function () {
 
   }
 }

@@ -8,6 +8,7 @@ import {aggregate, normaliseData} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
 import {D3BuildArc} from './D3BuildArc';
 import {D3BuildIcosahedron} from './D3BuildIcosahedron';
+import {D3BuildD3Stars} from "./D3BuildStars";
 
 const Chemz = (function () {
   const _private: {
@@ -116,6 +117,7 @@ const Chemz = (function () {
       this.svgCircle = new D3BuildCircle();
       this.svgCircle.createElement();
       D3BuildIcosahedron.createElement();
+      D3BuildD3Stars.createElement();
       this.svgArc = new D3BuildArc();
       this.svgArc.createElement();
     },
