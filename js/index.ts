@@ -151,7 +151,7 @@ const Chemz = (function () {
           this.svgCircle.update(myResult);
         }
         if (this.flags.stars) {
-          D3BuildD3Stars.update(myResult);
+          D3BuildD3Stars.update(aggregate(this.frequencyArray, 12));
         }
       }
       if (!this.waveformArray.some(Boolean)) {
