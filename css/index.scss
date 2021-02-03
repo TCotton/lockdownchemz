@@ -108,6 +108,9 @@ a:active {
   .views {
     display: flex;
     justify-content: flex-end;
+    @media screen and (max-width: 1201px) {
+      justify-content: center;
+    }
   }
 
   .external {
