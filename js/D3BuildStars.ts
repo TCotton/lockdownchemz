@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import {scaleBand, scaleLinear, select} from 'd3';
 import zip from 'lodash.zip';
 import {newColourArray} from "./helperFunctions";
 
@@ -7,7 +7,7 @@ export const D3BuildD3Stars = {
     this.height = 300;
     this.width = 300;
 
-    this.svg = d3.select("#svg4")
+    this.svg = select("#svg4")
       .append("svg")
       .attr("viewBox", `0 0 ${this.width} ${this.height}`)
       .attr("preserveaspectratio", "MidYMid meet");
@@ -19,10 +19,11 @@ export const D3BuildD3Stars = {
     const colours = newColourArray(data);
     let result = zip(data, colours);
 
-    this.x = d3.scaleBand().range([0, this.width]).domain(result.map(d => d[1])).padding(0);
-    this.y = d3.scaleLinear().range([this.height, 0]).domain([0, 1]);
+    this.x = scaleBand().range([0, this.width]).domain(result.map(d => d[1])).padding(0);
+    this.y = scaleLinear().range([this.height, 0]).domain([0, 1]);
 
     this.elem = this.g.selectAll('.star').data(result);
+
 
     this.elem.join('rect')
       .attr("class", "star")
@@ -30,10 +31,13 @@ export const D3BuildD3Stars = {
       .attr("height", d => {
         return this.height - this.y(d[0]);
       })
-      .attr('fill', d => {
-        return d[1];
+      .attr('fill', (d, i) => {
+       if (i % 2 === 0) {
+         return 'black;'
+       }
+        return 'black';
       })
-      .attr('fill-opacity', "0.05")
+      .attr('fill-opacity', "0.03")
       .attr('x', d => this.x(d[1]))
       .attr('y', d => this.y(d[0]));
 
