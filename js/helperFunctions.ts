@@ -225,7 +225,7 @@ export const newColourArray = ([...data]) => {
       case 20:
         return colour20;
      default:
-        return 'transparent';
+       return colour20;
     }
   });
 }
