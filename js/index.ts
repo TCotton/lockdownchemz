@@ -156,7 +156,7 @@ const Chemz = (function () {
           D3BuildD3Stars.update(aggregate(this.frequencyArray, 12));
         }
         if (this.flags.o) {
-          D3BuildCanvasOscillator.update(myResult);
+          D3BuildCanvasOscillator.update(this.waveformArray);
         }
       }
       if (!this.waveformArray.some(Boolean)) {
