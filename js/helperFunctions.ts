@@ -105,7 +105,6 @@ const icosahedronSides = () => {
 }
 
 const averageEvery = (arr: Float32Array, n: number): number[] | boolean => {
-
   // if we have neither an arr, or an n
   // variable we quit here:
   if (!arr || !n) {
@@ -154,7 +153,6 @@ const averageEvery = (arr: Float32Array, n: number): number[] | boolean => {
       ) / group.length
   );
 }
-
 
 export const newColourArray = ([...data]) => {
   const colourOne = 'hsl(35.5,65.3%,46.3%)';

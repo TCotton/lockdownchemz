@@ -75,7 +75,6 @@ const Chemz = (function () {
     },
 
     createAudioContext: function (url: string): void {
-
       this.sound = new Howl({
         src: [url],
         autoplay: true,
@@ -157,9 +156,7 @@ const Chemz = (function () {
           D3BuildD3Stars.update(aggregate(this.frequencyArray, 12));
         }
         if (this.flags.o) {
-          if (this.globalAnimationID % 10 === 0) {
-            D3BuildCanvasOscillator.update(this.waveformArray);
-          }
+          D3BuildCanvasOscillator.update(myResult);
         }
       }
       if (!this.waveformArray.some(Boolean)) {
