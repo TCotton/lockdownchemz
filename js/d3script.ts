@@ -39,7 +39,7 @@ export const createD3 = ({
 
     const xScale = scaleLinear()
       .range([0, width])
-      .domain([0, this.fftSize]);
+      .domain([0, this.fftSize / 2]);
 
     const yScale = scaleLinear()
       .range([height, 0])

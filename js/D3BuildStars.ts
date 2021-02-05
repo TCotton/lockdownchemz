@@ -24,7 +24,6 @@ export const D3BuildD3Stars = {
 
     this.elem = this.g.selectAll('.star').data(result);
 
-
     this.elem.join('rect')
       .attr("class", "star")
       .attr('width', this.x.bandwidth)
