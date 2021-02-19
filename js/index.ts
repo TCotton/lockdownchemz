@@ -26,6 +26,7 @@ const Chemz = (function () {
     url: string | null;
     waveformArray: Float32Array[] | null;
     frequencyArray: Float32Array[] | null;
+    frequencyByteData: Uint8Array[] | null;
     analyser: AudioContext;
     createAudioContext: (url: string) => void;
     audioElement: HTMLAudioElement;
@@ -54,6 +55,7 @@ const Chemz = (function () {
     waveformArray: null,
     globalAnimationID: null,
     frequencyArray: null,
+    frequencyByteData: null,
     svgCircle: null,
     svgArc: null,
     flags: {
@@ -111,6 +113,8 @@ const Chemz = (function () {
       this.analyser.getFloatTimeDomainData(this.waveformArray);
       this.frequencyArray = new Float32Array(this.analyser.frequencyBinCount);
       this.analyser.getFloatFrequencyData(this.frequencyArray);
+      this.frequencyByteData = new Uint8Array(this.analyser.frequencyBinCount);
+      this.analyser.getByteFrequencyData(this.frequencyByteData);
     },
 
     createDestination: function (): void {
@@ -158,6 +162,9 @@ const Chemz = (function () {
         if (this.flags.o) {
           D3BuildCanvasOscillator.update(this.waveformArray);
         }
+        this.analyser.getByteFrequencyData(this.frequencyByteData);
+        console.dir(this.frequencyByteData);
+        //this.anaylser.getByteFrequencyData(this.frequencyByteData);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -227,6 +234,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
     },
+
     displayD3BuildIcosahedron: function (): void {
 
       this.flags = {
@@ -341,7 +349,8 @@ const Chemz = (function () {
         console.log('isPlaying');
         if (!this.playIconClassElement.classList.contains('hidden')) this.playIconClassElement.classList.add('hidden');
       });
-    }
+    },
+
   };
   return {
     facade: function (args: any): void {

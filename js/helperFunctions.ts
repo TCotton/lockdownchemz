@@ -1,6 +1,18 @@
 import normalize from 'array-normalize';
 import {zip} from 'lodash';
 
+interface AbortSignal extends EventTarget {
+  /**
+   * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
+   */
+  readonly aborted: boolean;
+  onabort: ((this: AbortSignal, ev: Event) => any) | null;
+  addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+  removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
 export const covertToArrayRemoveLastValue = (anObject: object): number[] => {
   return Object.values(anObject).splice(0, (Object.values(anObject).length - 1));
 }
@@ -8,7 +20,7 @@ export const covertToArrayRemoveLastValue = (anObject: object): number[] => {
 export const random = () => {
   const array = new Uint8Array(20);
   crypto.getRandomValues(array);
-  return btoa(String.fromCharCode(...array)).split('').filter(value => {
+  return btoa(String.fromCharCode(...Array.from(array))).split('').filter(value => {
     return !['+', '/', '='].includes(value);
   }).slice(0, 7).join('');
 }
@@ -19,6 +31,39 @@ export const createArrayStrings = ([...data]) => {
     return alphabet[i];
   });
 }
+
+export function animationInterval(ms: number, signal: AbortSignal, callback: Function) {
+  const start = document.timeline.currentTime;
+
+  function frame(time) {
+    if (signal.aborted) return;
+    callback(time);
+    scheduleFrame(time);
+  }
+
+  function scheduleFrame(time) {
+    const elapsed = time - start;
+    const roundedElapsed = Math.round(elapsed / ms) * ms;
+    const targetNext = start + roundedElapsed + ms;
+    const delay = targetNext - performance.now();
+    setTimeout(() => requestAnimationFrame(frame), delay);
+  }
+
+  scheduleFrame(start);
+}
+
+/*
+*
+const controller = new AbortController();
+
+// Create an animation callback every second:
+animationInterval(1000, controller.signal, time => {
+  console.log('tick!', time);
+});
+
+// And to stop it:
+controller.abort();
+* */
 
 export const createArcArray = (data: object, height: number = 300, width: number = 300): number[] => {
   const radiusOne = Math.min(width, height) / 2;
@@ -222,8 +267,8 @@ export const newColourArray = ([...data]) => {
         return colour19;
       case 20:
         return colour20;
-     default:
-       return colour20;
+      default:
+        return colour20;
     }
   });
 }
