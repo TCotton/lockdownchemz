@@ -11,11 +11,12 @@ import {D3BuildIcosahedron} from './D3BuildIcosahedron';
 import {D3BuildD3Stars} from "./D3BuildStars";
 import {D3BuildCanvasOscillator} from './D3BuildCanvasOscillator';
 import {D3BuildSpectrogram} from "./D3BuildSpectogram";
+import {D3BuildSpectrogramCanvas} from './D3BuildSpectrogramCanvas';
 
 const Chemz = (function () {
   const _private: {
     play: () => void;
-    init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement) => void;
+    init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement, svgSeven: HTMLElement) => void;
     ctx: AudioContext;
     playIconClassElement: HTMLElement;
     towerBlockElement: HTMLElement;
@@ -25,6 +26,7 @@ const Chemz = (function () {
     svgDomFour: HTMLElement;
     svgDomFive: HTMLElement;
     svgDomSix: HTMLElement;
+    svgDomSeven: HTMLElement;
     url: string | null;
     waveformArray: Float32Array[] | null;
     frequencyArray: Float32Array[] | null;
@@ -49,10 +51,10 @@ const Chemz = (function () {
     displayD3BuildArc:  () => void;
     displayD3BuildOscillator: () => void;
     displayD3BuildStars: () => void;
-    display: () => void;
+    displayD3BuildSpectrogramCanvas: () => void;
     displayD3BuildSpectrogram: () => void;
     viewEvent: () => void;
-    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean };
+    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean };
 
   } = {
     url: null,
@@ -69,9 +71,10 @@ const Chemz = (function () {
       stars: false,
       o: false,
       s: false,
+      sSVG: false,
     },
 
-    init: function (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement): void {
+    init: function (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement, svgSeven: HTMLElement): void {
       this.playIconClassElement = element;
       this.towerBlockElement = elementTwo;
       this.svgDomOne = svgOne;
@@ -80,6 +83,7 @@ const Chemz = (function () {
       this.svgDomFour = svgFour;
       this.svgDomFive = svgFive;
       this.svgDomSix = svgSix;
+      this.svgDomSeven = svgSeven;
     },
 
     createAudioContext: function (url: string): void {
@@ -169,7 +173,14 @@ const Chemz = (function () {
           D3BuildCanvasOscillator.update(this.waveformArray);
         }
         this.analyser.getByteFrequencyData(this.frequencyByteData);
-        D3BuildSpectrogram.init(this.frequencyByteData);
+        if (this.flags.s) {
+          D3BuildSpectrogram.init(this.frequencyByteData);
+        }
+
+        if (this.flags.sSVG) {
+          D3BuildSpectrogramCanvas.init(this.frequencyByteData);
+        }
+
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -220,12 +231,42 @@ const Chemz = (function () {
           this.displayD3BuildSpectrogram();
         }
 
+        // @ts-ignore
+        if (event.target.id === 'seven') {
+          console.log('seven');
+          this.displayD3BuildSpectrogramCanvas();
+        }
+
       });
     },
-    display: function(): void {
-
-    },
     //TODO refactor
+    displayD3BuildSpectrogramCanvas: function(): void {
+      this.flags = {
+        circle: false,
+        arc: false,
+        i: false,
+        stars: false,
+        o: false,
+        s: false,
+        sSVG: true,
+      };
+
+      if (this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.remove('hidden');
+      if (!this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.add('hidden');
+      if (!this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.add('hidden');
+      if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
+      if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
+      if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
+      if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+
+      if (!this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.add('flash');
+      if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
+      if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
+      if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
+      if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
+      if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
+      if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+    },
     displayD3BuildSpectrogram: function(): void {
 
       this.flags = {
@@ -235,6 +276,7 @@ const Chemz = (function () {
         stars: false,
         o: false,
         s: true,
+        sSVG: false,
       };
 
       if (this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.remove('hidden');
@@ -243,6 +285,7 @@ const Chemz = (function () {
       if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
       if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
       if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
@@ -250,6 +293,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
       if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
     displayD3BuildOscillator: function(): void {
 
@@ -260,6 +304,7 @@ const Chemz = (function () {
         stars: false,
         o: true,
         s: false,
+        sSVG: false,
       };
 
       if (this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.remove('hidden');
@@ -268,6 +313,7 @@ const Chemz = (function () {
       if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
       if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
       if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
@@ -275,6 +321,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
       if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
 
     displayD3BuildIcosahedron: function (): void {
@@ -286,6 +333,7 @@ const Chemz = (function () {
         stars: false,
         o: false,
         s: false,
+        sSVG: false,
       };
 
       if (this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.remove('hidden');
@@ -294,6 +342,7 @@ const Chemz = (function () {
       if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
       if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
       if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
@@ -301,6 +350,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
       if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
 
     displayD3BuildCircle: function (): void {
@@ -312,6 +362,7 @@ const Chemz = (function () {
         stars: false,
         o: false,
         s: false,
+        sSVG: false,
       };
 
       if (this.svgDomOne.classList.contains('hidden')) this.svgDomOne.classList.remove('hidden');
@@ -320,6 +371,7 @@ const Chemz = (function () {
       if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
       if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
       if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.add('flash');
       if (this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.remove('flash');
@@ -327,6 +379,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
       if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
 
     displayD3BuildArc: function (): void {
@@ -338,6 +391,7 @@ const Chemz = (function () {
         stars: false,
         o: false,
         s: false,
+        sSVG: false,
       };
 
       if (this.svgDomTwo.classList.contains('hidden')) this.svgDomTwo.classList.remove('hidden');
@@ -346,6 +400,7 @@ const Chemz = (function () {
       if (!this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.add('hidden');
       if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
       if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomTwo.classList.contains('flash')) this.svgDomTwo.classList.add('flash');
       if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
@@ -353,6 +408,7 @@ const Chemz = (function () {
       if (this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.remove('flash');
       if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
       if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
 
     displayD3BuildStars: function (): void {
@@ -364,6 +420,7 @@ const Chemz = (function () {
         stars: true,
         o: false,
         s: false,
+        sSVG: false,
       };
 
       if (this.svgDomFour.classList.contains('hidden')) this.svgDomFour.classList.remove('hidden');
@@ -372,6 +429,7 @@ const Chemz = (function () {
       if (!this.svgDomThree.classList.contains('hidden')) this.svgDomThree.classList.add('hidden');
       if (!this.svgDomFive.classList.contains('hidden')) this.svgDomFive.classList.add('hidden');
       if (!this.svgDomSix.classList.contains('hidden')) this.svgDomSix.classList.add('hidden');
+      if (!this.svgDomSeven.classList.contains('hidden')) this.svgDomSeven.classList.add('hidden');
 
       if (!this.svgDomFour.classList.contains('flash')) this.svgDomFour.classList.add('flash');
       if (this.svgDomOne.classList.contains('flash')) this.svgDomOne.classList.remove('flash');
@@ -379,6 +437,7 @@ const Chemz = (function () {
       if (this.svgDomThree.classList.contains('flash')) this.svgDomThree.classList.remove('flash');
       if (this.svgDomFive.classList.contains('flash')) this.svgDomFive.classList.remove('flash');
       if (this.svgDomSix.classList.contains('flash')) this.svgDomSix.classList.remove('flash');
+      if (this.svgDomSeven.classList.contains('flash')) this.svgDomSeven.classList.remove('flash');
     },
 
     useD3: function (): void {
@@ -389,6 +448,7 @@ const Chemz = (function () {
       this.svg = createD3({height, width, fftSize});
       D3BuildCanvasOscillator.createElement({fftSize});
       D3BuildSpectrogram.createElement({fftSize});
+      D3BuildSpectrogramCanvas.createElement({fftSize});
     },
 
     play: function (): void {
@@ -409,8 +469,8 @@ const Chemz = (function () {
   };
   return {
     facade: function (args: any): void {
-      const {url, playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour, svgFive, svgSix} = args;
-      _private.init(playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour, svgFive, svgSix);
+      const {url, playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour, svgFive, svgSix, svgSeven} = args;
+      _private.init(playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour, svgFive, svgSix, svgSeven);
       _private.createAudioContext(url);
       _private.detectAutoplay();
       _private.createNodes();
@@ -436,6 +496,7 @@ win.onload = () => {
     svgFour: <HTMLElement>doc.querySelector('#svg4'),
     svgFive: <HTMLElement>doc.querySelector('#svg5'),
     svgSix: <HTMLElement>doc.querySelector('#svg6'),
+    svgSeven: <HTMLElement>doc.querySelector('#svg7'),
   });
 }
 
