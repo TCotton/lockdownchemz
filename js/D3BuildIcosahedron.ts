@@ -9,10 +9,10 @@ export const D3BuildIcosahedron = {
     this.t0 = Date.now();
 
     const colourOne = 'hsl(35.5,65.3%,46.3%)';
-  const colourTwo = 'hsl(22.5,14.3%,11%)';
-  const colourThree = 'hsl(44.4,36%,85.3%)';
-  const colourFour = 'hsl(27.8,59.3%,22.2%)';
-  const colourFive = 'hsl(44.4,37%,50.7%)';
+    const colourTwo = 'hsl(22.5,14.3%,11%)';
+    const colourThree = 'hsl(44.4,36%,85.3%)';
+    const colourFour = 'hsl(27.8,59.3%,22.2%)';
+    const colourFive = 'hsl(44.4,37%,50.7%)';
     this.arrayOfColours = [colourOne, colourTwo, colourThree, colourFour, colourFive];
 
     this.projection = geoOrthographic()
