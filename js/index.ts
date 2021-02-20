@@ -53,6 +53,7 @@ const Chemz = (function () {
     displayD3BuildStars: () => void;
     displayD3BuildSpectrogramCanvas: () => void;
     displayD3BuildSpectrogram: () => void;
+    displayView: (n: number) => void;
     viewEvent: () => void;
     flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean };
 
@@ -176,7 +177,6 @@ const Chemz = (function () {
         if (this.flags.s) {
           D3BuildSpectrogram.init(this.frequencyByteData);
         }
-
         if (this.flags.sSVG) {
           D3BuildSpectrogramCanvas.init(this.frequencyByteData);
         }
@@ -239,8 +239,24 @@ const Chemz = (function () {
 
       });
     },
+
+    //TODO: refactor using data attributes
+    displayView: function(n: number): void {
+      const e = Array.from(document.querySelectorAll('.views > div'));
+      e.forEach((e) => {
+        if(Number.parseInt(e.id.slice(3,4)) === n) {
+          if (e.classList.contains('hidden')) e.classList.remove('hidden');
+          if (!e.classList.contains('flash')) e.classList.add('flash');
+        }
+
+        if (!e.classList.contains('hidden')) e.classList.add('hidden');
+        if (e.classList.contains('flash')) e.classList.remove('flash');
+      });
+    },
+
     //TODO refactor
     displayD3BuildSpectrogramCanvas: function(): void {
+
       this.flags = {
         circle: false,
         arc: false,
