@@ -174,7 +174,6 @@ const Chemz = (function () {
         if (this.flags.wave) {
           D3BuildWaveline.update(this.waveformArray);
         }
-        D3BuildWaveline.update(this.waveformArray);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
