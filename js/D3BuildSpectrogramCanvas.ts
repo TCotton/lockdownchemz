@@ -19,13 +19,9 @@ export const D3BuildSpectrogramCanvas = {
     this.context.fillRect(0, 0, this.width, this.height);
   },
   init: function (DATA) {
-
     const LEN = DATA.length;
     const h = this.height / LEN;
     const x = this.width - 1;
-
-    const colourThree = 'hsl(44.4,36%,85.3%)';
-    const colourFive = 'hsl(44.4,37%,50.7%)';
 
     let imgData = this.context.getImageData(1, 0, this.width - 1, this.height);
     this.context.fillRect(0, 0, this.width, this.height);

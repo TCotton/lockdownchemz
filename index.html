@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>Burial lockdown Chemz</title>
-  <meta name="description" content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz">
+  <meta name="description"
+        content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="https://thisisa.lockdownchemz.link" rel="canonical">
@@ -13,14 +14,18 @@
   <link type="text/plain" href="/robots.txt" rel="robot">
 
   <meta property="og:title" content="Burial lockdown Chemz">
-  <meta property="og:description" content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz" />
+  <meta property="og:description"
+        content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz"/>
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thisisa.lockdownchemz.link">
-  <meta property="og:image" content="https://bdec31521c28f58d04a0-f919f4c862fd2770d5d9ff992baca219.ssl.cf3.rackcdn.com/chemz.gif">
+  <meta property="og:image"
+        content="https://bdec31521c28f58d04a0-f919f4c862fd2770d5d9ff992baca219.ssl.cf3.rackcdn.com/chemz.gif">
 
   <meta name="twitter:title" content="Burial lockdown Chemz">
-  <meta name="twitter:description" content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz">
-  <meta name="twitter:image" content="https://bdec31521c28f58d04a0-f919f4c862fd2770d5d9ff992baca219.ssl.cf3.rackcdn.com/chemz.gif">
+  <meta name="twitter:description"
+        content="A lockdown project created using the Web Audio API, SVG and CSS animation with D3.js using Burial's single, Chemz">
+  <meta name="twitter:image"
+        content="https://bdec31521c28f58d04a0-f919f4c862fd2770d5d9ff992baca219.ssl.cf3.rackcdn.com/chemz.gif">
   <meta name="twitter:image:alt" content="Burial lockdown Chemz">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -28,7 +33,8 @@
   <link rel="preload" href="static/chemz.mp3" as="audio" type="audio/mp3">
   <!-- Place favicon.ico in the root directory -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        rel="stylesheet">
   <link rel="stylesheet" href="css/index.scss">
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -39,7 +45,7 @@
   <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -50,12 +56,16 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0P9WTHFMJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
 
     gtag('config', 'G-K0P9WTHFMJ');
   </script>
-  <meta name="google-site-verification" content="AmKf_ZcIiU4cSBbnTtkZVZNE6rPvDrZhDvdbezitZ_k" />
+  <meta name="google-site-verification" content="AmKf_ZcIiU4cSBbnTtkZVZNE6rPvDrZhDvdbezitZ_k"/>
 </head>
 
 <body>
@@ -68,7 +78,9 @@
   <article class="header">
     <div class="info_track">
       <div class="content">
-        <p><a href="https://burial.bandcamp.com/album/chemz-dolphinz" target="_blank" rel="noopener noreferrer">You can buy the full version of Chemz by Burial with the track Dolphinz on Bandcamp <img src="assets/external-link-alt-solid.svg" width="16" height="16" alt="" class="external"/></a></p>
+        <p><a href="https://burial.bandcamp.com/album/chemz-dolphinz" target="_blank" rel="noopener noreferrer">You can
+          buy the full version of Chemz by Burial with the track Dolphinz on Bandcamp <img
+            src="assets/external-link-alt-solid.svg" width="16" height="16" alt="" class="external"/></a></p>
       </div>
     </div>
     <div class="navigation">
@@ -82,13 +94,13 @@
         <li id="seven">Seven</li>
       </ul>
       <div class="views">
-        <div id="svg1" class="view hidden"></div>
-        <div id="svg2" class="view hidden"></div>
-        <div id="svg3" class="view flash"></div>
-        <div id="svg4" class="view hidden"></div>
-        <div id="svg5" class="view hidden"></div>
-        <div id="svg6" class="view hidden"></div>
-        <div id="svg7" class="view hidden"></div>
+        <div id="svg1" class="view hidden" data-id="one"></div>
+        <div id="svg2" class="view hidden" data-id="two"></div>
+        <div id="svg3" class="view flash" data-id="three"></div>
+        <div id="svg4" class="view hidden" data-id="four"></div>
+        <div id="svg5" class="view hidden" data-id="five"></div>
+        <div id="svg6" class="view hidden" data-id="six"></div>
+        <div id="svg7" class="view hidden" data-id="seven"></div>
       </div>
     </div>
 
@@ -97,9 +109,13 @@
     <div class="right-content"></div>
     <aside class="author content">
       <div class="internal">
-      <p>This is a lockdown project created by [<a href="https://twitter.com/AndrewWalpole5" target="_blank" rel="noopener noreferrer">Andy Walpole<img src="assets/twitter-logo.svg" width="16" height="16" alt="" class="external"/></a>]</p>
-      <p>This site uses the Web Audio API, SVG and CSS animation with d3.js</p>
-      <p><a href="https://github.com/TCotton/lockdownchemz" target="_blank" rel="noopener noreferrer">You can find the code on GitHub <img src="assets/external-link-alt-solid.svg" width="16" height="16" alt="" class="external"/></a></p>
+        <p>This is a lockdown project created by [<a href="https://twitter.com/AndrewWalpole5" target="_blank"
+                                                     rel="noopener noreferrer">Andy Walpole<img
+          src="assets/twitter-logo.svg" width="16" height="16" alt="" class="external"/></a>]</p>
+        <p>This site uses the Web Audio API, SVG and CSS animation with d3.js</p>
+        <p><a href="https://github.com/TCotton/lockdownchemz" target="_blank" rel="noopener noreferrer">You can find the
+          code on GitHub <img src="assets/external-link-alt-solid.svg" width="16" height="16" alt="" class="external"/></a>
+        </p>
       </div>
     </aside>
   </div>
@@ -1900,15 +1916,15 @@
 
 <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 <script>
-/*  window.ga = function () {
-    ga.q.push(arguments)
-  };
-  ga.q = [];
-  ga.l = +new Date;
-  ga('create', 'UA-XXXXX-Y', 'auto');
-  ga('set', 'anonymizeIp', true);
-  ga('set', 'transport', 'beacon');
-  ga('send', 'pageview')*/
+  /*  window.ga = function () {
+      ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('set', 'transport', 'beacon');
+    ga('send', 'pageview')*/
 </script>
 <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>

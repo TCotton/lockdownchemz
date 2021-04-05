@@ -34,7 +34,7 @@ export const D3BuildSpectrogram = {
       .attr('class', "bottom-ticks")
       .call(ab)
       .selectAll("text")
-      .attr("transform", "translate(-10,0)rotate(-45)")
+      .attr("transform", "translate(-10,0) rotate(-45)")
       .style("text-anchor", "end")
       .style("font-size", 10)
       .style("fill", colourFive);
