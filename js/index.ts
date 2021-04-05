@@ -3,6 +3,7 @@ import compose from 'lodash/fp/compose';
 import canAutoplay from 'can-autoplay';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
+import WaveformData from "waveform-data";
 import {createD3} from './d3script';
 import {aggregate, normaliseData} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
@@ -12,21 +13,15 @@ import {D3BuildD3Stars} from "./D3BuildStars";
 import {D3BuildCanvasOscillator} from './D3BuildCanvasOscillator';
 import {D3BuildSpectrogram} from "./D3BuildSpectogram";
 import {D3BuildSpectrogramCanvas} from './D3BuildSpectrogramCanvas';
+import {D3BuildWaveline} from "./D3BuildWaveline";
 
 const Chemz = (function () {
   const _private: {
     play: () => void;
-    init: (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement, svgSeven: HTMLElement, view: any) => void;
+    init: (element: HTMLElement, elementTwo: HTMLElement, view: NodeListOf<HTMLElement>) => void;
     ctx: AudioContext;
     playIconClassElement: HTMLElement;
     towerBlockElement: HTMLElement;
-    svgDomOne: HTMLElement;
-    svgDomTwo: HTMLElement;
-    svgDomThree: HTMLElement;
-    svgDomFour: HTMLElement;
-    svgDomFive: HTMLElement;
-    svgDomSix: HTMLElement;
-    svgDomSeven: HTMLElement;
     view: NodeListOf<HTMLElement>;
     url: string | null;
     waveformArray: Float32Array[] | null;
@@ -55,9 +50,9 @@ const Chemz = (function () {
     displayD3BuildSpectrogramCanvas: () => void;
     displayD3BuildSpectrogram: () => void;
     displayView: (n: string) => void;
+    displayD3BuildWaveLine: () => void;
     viewEvent: () => void;
-    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean };
-
+    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean, wave: false };
   } = {
     url: null,
     waveformArray: null,
@@ -74,18 +69,12 @@ const Chemz = (function () {
       o: false,
       s: false,
       sSVG: false,
+      wave: false,
     },
 
-    init: function (element: HTMLElement, elementTwo: HTMLElement, svgOne: HTMLElement, svgTwo: HTMLElement, svgThree: HTMLElement, svgFour: HTMLElement, svgFive: HTMLElement, svgSix: HTMLElement, svgSeven: HTMLElement, view: NodeListOf<HTMLElement>): void {
+    init: function (element: HTMLElement, elementTwo: HTMLElement, view: NodeListOf<HTMLElement>): void {
       this.playIconClassElement = element;
       this.towerBlockElement = elementTwo;
-      this.svgDomOne = svgOne;
-      this.svgDomTwo = svgTwo;
-      this.svgDomThree = svgThree;
-      this.svgDomFour = svgFour;
-      this.svgDomFive = svgFive;
-      this.svgDomSix = svgSix;
-      this.svgDomSeven = svgSeven;
       this.view = view;
     },
 
@@ -182,7 +171,10 @@ const Chemz = (function () {
         if (this.flags.sSVG) {
           D3BuildSpectrogramCanvas.init(this.frequencyByteData);
         }
-
+        if (this.flags.wave) {
+          D3BuildWaveline.update(this.waveformArray);
+        }
+        D3BuildWaveline.update(this.waveformArray);
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -193,68 +185,66 @@ const Chemz = (function () {
 
     viewEvent: function (): void {
       const view = this.view;
-      doc.querySelector('body').addEventListener('click', event => {
-        // @ts-ignore
+      // @ts-ignore
+      doc.querySelector('body').addEventListener('click', (event: { target: Element }) => {
+
         if (Array.from(view).includes(event.target)) return;
 
-        // @ts-ignore
         if (event.target.id === 'four') {
           console.log('three');
           this.displayD3BuildStars();
           this.displayView('four');
         }
 
-        // @ts-ignore
         if (event.target.id === 'three') {
           console.log('three');
           this.displayD3BuildArc();
           this.displayView('two');
         }
 
-        // @ts-ignore
         if (event.target.id === 'two') {
           console.log('two');
           this.displayD3BuildCircle();
           this.displayView('one');
         }
 
-        // @ts-ignore
         if (event.target.id === 'one') {
           console.log('one');
           this.displayD3BuildIcosahedron();
           this.displayView('three');
         }
 
-        // @ts-ignore
         if (event.target.id === 'five') {
           console.log('five');
           this.displayD3BuildOscillator();
           this.displayView('five');
         }
 
-        // @ts-ignore
         if (event.target.id === 'six') {
           console.log('six');
           this.displayD3BuildSpectrogram();
           this.displayView('six');
         }
 
-        // @ts-ignore
         if (event.target.id === 'seven') {
           console.log('seven');
           this.displayD3BuildSpectrogramCanvas();
           this.displayView('seven');
         }
+
+        if (event.target.id === 'eight') {
+          console.log('eight');
+          this.displayD3BuildWaveLine();
+          this.displayView('eight');
+        }
       });
     },
 
-    //TODO: refactor using data attributes
     displayView: function (s: string): void {
       const e = Array.from(document.querySelectorAll('.views > div'));
       e.forEach((e: HTMLElement) => {
 
         if (e.dataset.id === s) {
-          console.log(e.dataset.id);
           if (e.classList.contains('hidden')) e.classList.remove('hidden');
           if (!e.classList.contains('flash')) e.classList.add('flash');
         }
@@ -266,9 +256,20 @@ const Chemz = (function () {
       });
     },
 
-    //TODO refactor
-    displayD3BuildSpectrogramCanvas: function (): void {
+    displayD3BuildWaveLine: function (): void {
+      this.flags = {
+        circle: false,
+        arc: false,
+        i: false,
+        stars: false,
+        o: false,
+        s: false,
+        sSVG: false,
+        wave: true,
+      };
+    },
 
+    displayD3BuildSpectrogramCanvas: function (): void {
       this.flags = {
         circle: false,
         arc: false,
@@ -277,10 +278,11 @@ const Chemz = (function () {
         o: false,
         s: false,
         sSVG: true,
+        wave: false,
       };
     },
-    displayD3BuildSpectrogram: function (): void {
 
+    displayD3BuildSpectrogram: function (): void {
       this.flags = {
         circle: false,
         arc: false,
@@ -289,10 +291,11 @@ const Chemz = (function () {
         o: false,
         s: true,
         sSVG: false,
+        wave: false,
       };
     },
-    displayD3BuildOscillator: function (): void {
 
+    displayD3BuildOscillator: function (): void {
       this.flags = {
         circle: false,
         arc: false,
@@ -301,11 +304,11 @@ const Chemz = (function () {
         o: true,
         s: false,
         sSVG: false,
+        wave: false,
       };
     },
 
     displayD3BuildIcosahedron: function (): void {
-
       this.flags = {
         circle: false,
         arc: false,
@@ -314,11 +317,11 @@ const Chemz = (function () {
         o: false,
         s: false,
         sSVG: false,
+        wave: false,
       };
     },
 
     displayD3BuildCircle: function (): void {
-
       this.flags = {
         circle: true,
         arc: false,
@@ -327,11 +330,11 @@ const Chemz = (function () {
         o: false,
         s: false,
         sSVG: false,
+        wave: false,
       };
     },
 
     displayD3BuildArc: function (): void {
-
       this.flags = {
         circle: false,
         arc: true,
@@ -344,7 +347,6 @@ const Chemz = (function () {
     },
 
     displayD3BuildStars: function (): void {
-
       this.flags = {
         circle: false,
         arc: false,
@@ -353,6 +355,7 @@ const Chemz = (function () {
         o: false,
         s: false,
         sSVG: false,
+        wave: false,
       };
     },
 
@@ -365,6 +368,7 @@ const Chemz = (function () {
       D3BuildCanvasOscillator.createElement({fftSize});
       D3BuildSpectrogram.createElement({fftSize});
       D3BuildSpectrogramCanvas.createElement({fftSize});
+      D3BuildWaveline.createElement({fftSize});
     },
 
     play: function (): void {
@@ -389,16 +393,9 @@ const Chemz = (function () {
         url,
         playIconClassElement,
         towerBlockElement,
-        svgOne,
-        svgTwo,
-        svgThree,
-        svgFour,
-        svgFive,
-        svgSix,
-        svgSeven,
         view
       } = args;
-      _private.init(playIconClassElement, towerBlockElement, svgOne, svgTwo, svgThree, svgFour, svgFive, svgSix, svgSeven, view);
+      _private.init(playIconClassElement, towerBlockElement, view);
       _private.createAudioContext(url);
       _private.detectAutoplay();
       _private.createNodes();
@@ -418,13 +415,6 @@ win.onload = () => {
     url: require('../static/chemz-edit.mp3'),
     playIconClassElement: <HTMLElement>doc.querySelector('.play_icon'),
     towerBlockElement: <HTMLElement>doc.querySelector('.towerblock'),
-    svgOne: <HTMLElement>doc.querySelector('#svg1'),
-    svgTwo: <HTMLElement>doc.querySelector('#svg2'),
-    svgThree: <HTMLElement>doc.querySelector('#svg3'),
-    svgFour: <HTMLElement>doc.querySelector('#svg4'),
-    svgFive: <HTMLElement>doc.querySelector('#svg5'),
-    svgSix: <HTMLElement>doc.querySelector('#svg6'),
-    svgSeven: <HTMLElement>doc.querySelector('#svg7'),
     view: <HTMLElement><unknown>doc.querySelectorAll('.view'),
   });
 }
