@@ -16,7 +16,7 @@ export const D3BuildSpectrogramCanvas = {
     this.dataContainer = select(detachedContainer);
     this.context = this.canvas.node().getContext('2d');
     this.context.fillStyle = 'hsl(44.4,37%,50.7%)';
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.context.clearRect(0, 0, this.width, this.height);
   },
   init: function (DATA) {
     const LEN = DATA.length;
@@ -24,7 +24,7 @@ export const D3BuildSpectrogramCanvas = {
     const x = this.width - 1;
 
     let imgData = this.context.getImageData(1, 0, this.width - 1, this.height);
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.context.clearRect(0, 0, this.width, this.height);
     this.context.putImageData(imgData, 0, 0);
     for (let i = 0; i < LEN; i++) {
       let rat = DATA[i] / 255;
