@@ -18,13 +18,14 @@ export const D3BuildWaveBars = {
     this.context = this.canvas.node().getContext('2d');
     this.rotate1 = 0;
     this.rotate2 = 180;
+    this.dom = document;
   },
   update: function (waveformArray, waveArrayTwo) {
     this.rotate1 += 1;
     this.rotate2 += 1;
 
-    document.documentElement.style.setProperty("--rotateOne", `${this.rotate1}deg`);
-    document.documentElement.style.setProperty("--rotateTwo", `${this.rotate2}deg`);
+    this.dom.documentElement.style.setProperty("--rotateOne", `${this.rotate1}deg`);
+    this.dom.documentElement.style.setProperty("--rotateTwo", `${this.rotate2}deg`);
 
     this.context.save();
     this.context.fillStyle = 'hsla(44.4,36%,85.3%,10%)';
