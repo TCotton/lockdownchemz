@@ -3,7 +3,6 @@ import compose from 'lodash/fp/compose';
 import canAutoplay from 'can-autoplay';
 import {doc, win} from './globals';
 import {Howl, Howler} from 'howler';
-import WaveformData from "waveform-data";
 import {createD3} from './d3script';
 import {aggregate, normaliseData} from './helperFunctions';
 import {D3BuildCircle} from './D3BuildCircle';
@@ -14,6 +13,7 @@ import {D3BuildCanvasOscillator} from './D3BuildCanvasOscillator';
 import {D3BuildSpectrogram} from "./D3BuildSpectogram";
 import {D3BuildSpectrogramCanvas} from './D3BuildSpectrogramCanvas';
 import {D3BuildWaveline} from "./D3BuildWaveline";
+import {D3BuildWaveBars} from "./D3BuildWaveBars";
 
 const Chemz = (function () {
   const _private: {
@@ -174,6 +174,8 @@ const Chemz = (function () {
         if (this.flags.wave) {
           D3BuildWaveline.update(this.waveformArray);
         }
+
+        D3BuildWaveBars.update(aggregate(this.waveformArray, 24), aggregate(this.waveformArray, 44));
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -368,6 +370,7 @@ const Chemz = (function () {
       D3BuildSpectrogram.createElement({fftSize});
       D3BuildSpectrogramCanvas.createElement({fftSize});
       D3BuildWaveline.createElement({fftSize});
+      D3BuildWaveBars.createElement({fftSize});
     },
 
     play: function (): void {

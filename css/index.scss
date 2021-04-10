@@ -24,29 +24,37 @@ html {
 p {
   @include font-calculator($baseFontFamily, 16px);
 }
+
 .info_track {
   font-weight: 500;
 }
+
 li {
   @include font-calculator($baseFontFamily, 16px);
 }
+
 :root {
   --link: #ffffff;
 }
+
 a:link {
   color: var(--link);
   text-decoration: none;
 }
+
 a:visited {
   color: var(--link);
 }
+
 a:focus {
   color: var(--link);
 }
+
 a:hover {
   color: var(--link);
   text-decoration: underline;
 }
+
 a:active {
   color: var(--link);
 }
@@ -66,6 +74,7 @@ a:active {
       grid-template-columns: auto;
     }
   }
+
   > div {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -73,15 +82,18 @@ a:active {
     @media screen and (max-width: 1023px) {
       grid-template-columns: auto;
     }
+
     .author {
       background: url('../assets/parallelogram.svg') no-repeat center center;
       padding: var(--marginx6) var(--marginx7);
       margin: 0 0 2px;
+
       .internal {
         text-align: center;
       }
     }
   }
+
   .navigation {
     display: grid;
     grid-template-rows: repeat(2, auto);
@@ -89,6 +101,7 @@ a:active {
       margin-top: var(--marginx6);
     }
   }
+
   .navigation ul {
     display: flex;
     justify-content: flex-end;
@@ -96,6 +109,7 @@ a:active {
       flex-direction: column;
       justify-content: flex-start;
     }
+
     li {
       padding: 0 20px;
       background: url('../assets/parallelogram.svg') no-repeat center center;
@@ -171,19 +185,67 @@ a:active {
   width: 300px;
   height: 300px;
 }
+
 #svg5 {
   width: 300px;
   height: 300px;
 }
+
 #svg6, #svg8 {
   width: 300px;
   height: 300px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
+
 #svg7 {
   width: 300px;
   height: 300px;
-  outline: 1px solid hsl(44.4,36%,85.3%);
+  outline: 1px solid hsl(44.4, 36%, 85.3%);
+}
+
+:root {
+  --rotateOne: 0deg;
+  --rotateTwo: 180deg;
+}
+
+#svg9 {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 150px solid transparent;
+    border-bottom: 150px solid transparent;
+    border-left: 150px solid hsla(27.8, 59.3%, 22.2%, 60%);
+    transform: rotate(var(--rotateOne));
+    transform-origin: 150px 150px;
+    clip-path: ellipse(150px 150px at 100% 50%);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 150px solid transparent;
+    border-bottom: 150px solid transparent;
+    border-left: 150px solid hsla(22.5, 14.3%, 11%, 60%);
+    transform: rotate(var(--rotateTwo));
+    transform-origin: 150px 150px;
+    clip-path: ellipse(150px 150px at 100% 50%);
+  }
 }
 
 .towerblock {
@@ -204,6 +266,7 @@ a:active {
   @media screen and (max-width: 1001px) {
     display: none;
   }
+
   svg {
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 1));
     animation-iteration-count: infinite;
@@ -319,6 +382,7 @@ img.bg {
   width: 100vw;
   height: 100vh;
 }
+
 #svg {
   path {
     stroke: white;
@@ -360,6 +424,7 @@ img.bg {
 
 .flash {
   position: relative;
+
   &::before {
     content: '';
     display: block;
@@ -634,9 +699,9 @@ img.bg {
 }
 
 .left-ticks text, .bottom-ticks text {
-  fill: hsl(35.5,65.3%,46.3%);
+  fill: hsl(35.5, 65.3%, 46.3%);
 }
 
-.left-ticks line, .left-ticks path, .bottom-ticks line, .bottom-ticks path  {
-  stroke: hsl(27.8,59.3%,22.2%);
+.left-ticks line, .left-ticks path, .bottom-ticks line, .bottom-ticks path {
+  stroke: hsl(27.8, 59.3%, 22.2%);
 }

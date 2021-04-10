@@ -38,7 +38,7 @@ export const D3BuildArc = function () {
       .attr('fill', function (d: object) {
         return d[1];
       })
-      .attr('style', `opacity: 0.3`)
+      .attr('style', `opacity: 0.2`)
       .attr('stroke', '#ffffff')
       .attr('stroke-width', '1');
 
