@@ -51,8 +51,9 @@ const Chemz = (function () {
     displayD3BuildSpectrogram: () => void;
     displayView: (n: string) => void;
     displayD3BuildWaveLine: () => void;
+    displayD3BuildWaveBars: () => void;
     viewEvent: () => void;
-    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean, wave: false };
+    flags: { arc: boolean, circle: boolean, i: boolean, stars: boolean, o: boolean, s: boolean, sSVG: boolean, wave: boolean, waveLine: boolean };
   } = {
     url: null,
     waveformArray: null,
@@ -70,6 +71,7 @@ const Chemz = (function () {
       s: false,
       sSVG: false,
       wave: false,
+      waveLine: false,
     },
 
     init: function (element: HTMLElement, elementTwo: HTMLElement, view: NodeListOf<HTMLElement>): void {
@@ -175,7 +177,10 @@ const Chemz = (function () {
           D3BuildWaveline.update(this.waveformArray);
         }
 
-        D3BuildWaveBars.update(aggregate(this.waveformArray, 24), aggregate(this.waveformArray, 44));
+        if (this.flags.waveLine) {
+          D3BuildWaveBars.update(aggregate(this.waveformArray, 24), aggregate(this.waveformArray, 44));
+        }
+
       }
       if (!this.waveformArray.some(Boolean)) {
         if (this.towerBlockElement.classList.contains('animation')) {
@@ -238,6 +243,12 @@ const Chemz = (function () {
           this.displayD3BuildWaveLine();
           this.displayView('eight');
         }
+
+        if (event.target.id === 'nine') {
+          console.log('eight');
+          this.displayD3BuildWaveBars();
+          this.displayView('nine');
+        }
       });
     },
 
@@ -247,14 +258,28 @@ const Chemz = (function () {
 
         if (e.dataset.id === s) {
           if (e.classList.contains('hidden')) e.classList.remove('hidden');
-          if (!e.classList.contains('flash')) e.classList.add('flash');
+          if (!e.classList.contains('flash') && !e.classList.contains('avoid-flash')) e.classList.add('flash');
         }
 
         if (e.dataset.id !== s) {
           if (!e.classList.contains('hidden')) e.classList.add('hidden');
-          if (e.classList.contains('flash')) e.classList.remove('flash');
+          if (e.classList.contains('flash') && !e.classList.contains('avoid-flash')) e.classList.remove('flash');
         }
       });
+    },
+
+    displayD3BuildWaveBars: function (): void {
+      this.flags = {
+        circle: false,
+        arc: false,
+        i: false,
+        stars: false,
+        o: false,
+        s: false,
+        sSVG: false,
+        wave: false,
+        waveLine: true,
+      };
     },
 
     displayD3BuildWaveLine: function (): void {
@@ -267,6 +292,7 @@ const Chemz = (function () {
         s: false,
         sSVG: false,
         wave: true,
+        waveLine: false,
       };
     },
 
@@ -280,6 +306,7 @@ const Chemz = (function () {
         s: false,
         sSVG: true,
         wave: false,
+        waveLine: false,
       };
     },
 
@@ -293,6 +320,7 @@ const Chemz = (function () {
         s: true,
         sSVG: false,
         wave: false,
+        waveLine: false,
       };
     },
 
@@ -306,6 +334,7 @@ const Chemz = (function () {
         s: false,
         sSVG: false,
         wave: false,
+        waveLine: false,
       };
     },
 
@@ -319,6 +348,7 @@ const Chemz = (function () {
         s: false,
         sSVG: false,
         wave: false,
+        waveLine: false,
       };
     },
 
@@ -332,6 +362,7 @@ const Chemz = (function () {
         s: false,
         sSVG: false,
         wave: false,
+        waveLine: false,
       };
     },
 
@@ -344,6 +375,8 @@ const Chemz = (function () {
         o: false,
         s: false,
         sSVG: false,
+        wave: false,
+        waveLine: false,
       };
     },
 
@@ -357,6 +390,7 @@ const Chemz = (function () {
         s: false,
         sSVG: false,
         wave: false,
+        waveLine: false,
       };
     },
 

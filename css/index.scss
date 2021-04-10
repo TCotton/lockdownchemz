@@ -104,7 +104,8 @@ a:active {
 
   .navigation ul {
     display: flex;
-    justify-content: flex-end;
+    justify-content: start;
+    flex-wrap: wrap;
     @media screen and (max-width: 1201px) {
       flex-direction: column;
       justify-content: flex-start;
@@ -225,7 +226,7 @@ a:active {
     height: 0;
     border-top: 150px solid transparent;
     border-bottom: 150px solid transparent;
-    border-left: 150px solid hsla(27.8, 59.3%, 22.2%, 60%);
+    border-left: 150px solid hsla(27.8, 59.3%, 22.2%, 80%);
     transform: rotate(var(--rotateOne));
     transform-origin: 150px 150px;
     clip-path: ellipse(150px 150px at 100% 50%);
@@ -241,7 +242,7 @@ a:active {
     height: 0;
     border-top: 150px solid transparent;
     border-bottom: 150px solid transparent;
-    border-left: 150px solid hsla(22.5, 14.3%, 11%, 60%);
+    border-left: 150px solid hsla(22.5, 14.3%, 11%, 80%);
     transform: rotate(var(--rotateTwo));
     transform-origin: 150px 150px;
     clip-path: ellipse(150px 150px at 100% 50%);
